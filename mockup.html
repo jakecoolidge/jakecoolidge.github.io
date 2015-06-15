@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8">
+<title>NPMaki | NPMap</title>
+<style type="text/css">
+body {
+	margin: 0 auto;
+	max-width: 700px;
+	font-family: Helvetica, Arial, sans-serif;
+	color: #706d5f;
+	font-size: 14px;
+	line-height: 20px;
+	margin-bottom: 10px;
+	//background-color: #f5f0dd;
+}
+h1 {
+	font-family: Georgia, serif;
+	font-size: 34px;
+	border-bottom: 1px solid #d8d8d8;
+	padding-bottom: 18px;
+}
+h2 {
+	color: #5e7630;
+ 	font-size: 26px;
+ 	line-height: 34px;
+ 	margin-bottom: 10px;
+}
+#container {
+	background-color: #fff;
+	width: 688px;
+}
+.icon-column {
+	width: 344px;
+	display: inline-block;
+	float: left;
+	position: relative;
+}
+#npmaki-black {
+	background-color: orange;
+	background-image: url("park-tiles-standard.png");
+}
+#npmaki-white {
+	//background-color: green;
+	background-image: url("park-tiles-slate.png");
+	color: white;
+}
+
+ul.icon-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0 0 0 15px;
+}
+
+ul.icon-list li {
+	display: inline-block;
+	margin: 0;
+	padding: 9px;
+	//min-width: 100px;
+}
+
+
+.icon-list img {
+	overflow: hidden;
+	position: relative;
+	margin: 0;
+	width: 24px;
+	height: 24px;
+}
+
+.icon-list li figcaption {
+	opacity: 0;
+	position: relative;
+	top: -10px;
+}
+
+.icon-list p {
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+	color:#b28000;;
+}
+/*
+ul.icon-list li:hover figcaption {
+	opacity: 1;
+}
+*/
+
+
+a.tooltip {outline:none; }
+a.tooltip strong {line-height:30px;}
+a.tooltip:hover {text-decoration:none;} 
+a.tooltip span {
+    z-index:10;
+    display:none; 
+    padding:1em;
+    margin-top:5px; 
+    margin-left:5px;
+    //width:200px; 
+    line-height:1.5em;
+}
+a.tooltip:hover span {
+    display:inline; 
+    position:absolute; 
+    color:#000;
+    border:1px solid #DCA; 
+    background:#fff;}
+
+    
+
+//.callout {z-index:20;position:absolute;top:500px;border:0;left:-120px;}
+    
+/*CSS3 extras
+a.tooltip span
+{
+    border-radius:4px;
+    box-shadow: 5px 5px 8px #CCC;
+}
+
+ul.icon-set pad2 clearfix {
+	float: left;
+	position: relative;
+}
+*/
+</style>
+</head>
+<body>
+	<div id="container">
+		<!-- link href='/www/maki-sprite.css' rel='stylesheet' / -->
+	<h1>NPSymbols</h1>
+	<p>NPSymbols are the custom web map icon set for the National Park Service. We integrate NPSymbols into our other mapping tools, including <a href="">Places Editor,</a> <a href="">Park Tiles,</a> and <a href="">Builder.</a> NPSymbols' clear and distinctive graphic identity originates with the <a href="">map symbols</a> developed for NPS print maps by the <a href="">Harper's Ferry Center.</a> Special modifications have been made to each icon to optimize its visibility on web maps. Icons optimized to display NPS points of interest as an overlay in Park Tiles are designed to be stand-alone icons, displayed without a bounding box or placemarker symbol. In addition, we use the Maki toolset developed by Mapbox to adapt NPSymbols for display within tear-drop style markers inside Builder and Places Editor. Supporting both black and white versions assures we can render NPSymbols clearly over a wide range of background colors.</p>
+	
+		<div id="npmaki-black" class="icon-column">
+			<script type="text/template" id="icon-collection"></script>
+    		<ul class="icon-list">
+				<li><a href="#" class="tooltip"><img src="renders/airport-black-24.png"><span><p>Airport</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/amphitheater-black-24.png"><span><p>Amphitheater</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/bear-black-24.png"><span><p>Bear</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/bicycle-trail-black-24.png"><span><p>Bicycle Trail</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/boat-launch-black-24.png"><span><p>Boat Launch</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/boat-tour-black-24.png"><span><p>Boat Tour</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/bus-stop-black-24.png"><span><p>Bus Stop</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/campfire-black-24.png"><span><p>Campfire</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/campground-black-24.png"><span><p>Campground</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/canoe-access-black-24.png"><span><p>Canoe Access</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/cross-country-ski-trail-black-24.png"><span><p>Cross-Country Ski Trail</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/downhill-skiing-black-24.png"><span><p>Downhill Skiing</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/drinking-water-black-24.png"><span><p>Drinking Water</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/first-aid-black-24.png"><span><p>First Aid</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/fishing-black-24.png"><span><p>Fishing</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/food-service-black-24.png"><span><p>Food Service</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/four-wheel-drive-road-black-24.png"><span><p>Four Wheel Drive Road</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/gas-station-black-24.png"><span><p>Gas Station</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/golfing-black-24.png"><span><p>Golfing</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/horseback-riding-black-24.png"><span><p>Horseback Riding</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/hospital-black-24.png"><span><p>Hospital</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/ice-skating-black-24.png"><span><p>Ice Skating</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/information-black-24.png"><span><p>Information</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/litter-receptacle-black-24.png"><span><p>Litter Receptacle</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/lodging-black-24.png"><span><p>Lodging</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/marina-black-24.png"><span><p>Marina</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/motor-bike-trail-black-24.png"><span><p>Motor Bike Trail</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/parking-black-24.png"><span><p>Parking</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/pets-on-leash-black-24.png"><span><p>Pets on Leash Area</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/picnic-area-black-24.png"><span><p>Picnic Area</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/post-office-black-24.png"><span><p>Post Office</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/radiator-water-black-24.png"><span><p>Radiator Water</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/ranger-station-black-24.png"><span><p>Ranger Station</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/recycling-black-24.png"><span><p>Recycling</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/restrooms-black-24.png"><span><p>Restrooms</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/rv-campground-black-24.png"><span><p>RV Campground</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/sailing-black-24.png"><span><p>Sailing</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/sanitary-disposal-station-black-24.png"><span><p>Sanitary Disposal Station</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/scuba-diving-black-24.png"><span><p>Scuba Diving</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/self-guiding-trail-black-24.png"><span><p>Self-Guiding Trail</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/shelter-black-24.png"><span><p>Shelter</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/showers-black-24.png"><span><p>Showers</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/sledding-black-24.png"><span><p>Sledding</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/snowmobile-trail-black-24.png"><span><p>Snowmobile Trail</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/stable-black-24.png"><span><p>Stable</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/store-black-24.png"><span><p>Store</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/swimming-black-24.png"><span><p>Swimming</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/telephone-black-24.png"><span><p>Telephone</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/trailhead-black-24.png"><span><p>Trailhead</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/visitor-center-black-24.png"><span><p>Visitor Center</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/wheelchair-accessible-black-24.png"><span><p>Wheelchair Accessible</p></span></a></li>
+			</ul>
+		</div>
+		<div id="npmaki-white" class="icon-column">
+			<ul class="icon-list">
+				<li><a href="#" class="tooltip"><img src="renders/airport-white-24.png"><span><p>Airport</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/amphitheater-white-24.png"><span><p>Amphitheater</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/bear-white-24.png"><span><p>Bear</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/bicycle-trail-white-24.png"><span><p>Bicycle Trail</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/boat-launch-white-24.png"><span><p>Boat Launch</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/boat-tour-white-24.png"><span><p>Boat Tour</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/bus-stop-white-24.png"><span><p>Bus Stop</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/campfire-white-24.png"><span><p>Campfire</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/campground-white-24.png"><span><p>Campground</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/canoe-access-white-24.png"><span><p>Canoe Access</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/cross-country-ski-trail-white-24.png"><span><p>Cross-Country Ski Trail</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/downhill-skiing-white-24.png"><span><p>Downhill Skiing</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/drinking-water-white-24.png"><span><p>Drinking Water</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/first-aid-white-24.png"><span><p>First Aid</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/fishing-white-24.png"><span><p>Fishing</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/food-service-white-24.png"><span><p>Food Service</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/four-wheel-drive-road-white-24.png"><span><p>Four Wheel Drive Road</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/gas-station-white-24.png"><span><p>Gas Station</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/golfing-white-24.png"><span><p>Golfing</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/horseback-riding-white-24.png"><span><p>Horseback Riding</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/hospital-white-24.png"><span><p>Hospital</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/ice-skating-white-24.png"><span><p>Ice Skating</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/information-white-24.png"><span><p>Information</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/litter-receptacle-white-24.png"><span><p>Litter Receptacle</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/lodging-white-24.png"><span><p>Lodging</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/marina-white-24.png"><span><p>Marina</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/motor-bike-trail-white-24.png"><span><p>Motor Bike Trail</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/parking-white-24.png"><span><p>Parking</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/pets-on-leash-white-24.png"><span><p>Pets on Leash Area</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/picnic-area-white-24.png"><span><p>Picnic Area</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/post-office-white-24.png"><span><p>Post Office</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/radiator-water-white-24.png"><span><p>Radiator Water</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/ranger-station-white-24.png"><span><p>Ranger Station</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/recycling-white-24.png"><span><p>Recycling</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/restrooms-white-24.png"><span><p>Restrooms</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/rv-campground-white-24.png"><span><p>RV Campground</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/sailing-white-24.png"><span><p>Sailing</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/sanitary-disposal-station-white-24.png"><span><p>Sanitary Disposal Station</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/scuba-diving-white-24.png"><span><p>Scuba Diving</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/self-guiding-trail-white-24.png"><span><p>Self-Guiding Trail</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/shelter-white-24.png"><span><p>Shelter</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/showers-white-24.png"><span><p>Showers</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/sledding-white-24.png"><span><p>Sledding</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/snowmobile-trail-white-24.png"><span><p>Snowmobile Trail</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/stable-white-24.png"><span><p>Stable</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/store-white-24.png"><span><p>Store</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/swimming-white-24.png"><span><p>Swimming</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/telephone-white-24.png"><span><p>Telephone</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/trailhead-white-24.png"><span><p>Trailhead</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/visitor-center-white-24.png"><span><p>Visitor Center</p></span></a></li>
+				<li><a href="#" class="tooltip"><img src="renders/wheelchair-accessible-white-24.png"><span><p>Wheelchair Accessible</p></span></a></li>
+			</ul>
+		</div>
+		<h2>Next up</h2>
+	<p>We welcome your feedback. Have a suggestion for an icon we might add or modify? Contact us at <a href="">our NPSymbols page on Github,</a> where you can also acquire NPSymbols for your own project. We have recently released NPSymbols version 1.0.0, and further enhancements and features are currently in development. Our next release will feature additional icons for both cultural and natural features.</p>
+	<img src="images/park-tiles-standard-slate-imagery-new-symbols.png" width="100%">
+	<img src="images/builder-placemarkers.png" width="100%">
+	</div>
+</body>
+</html>
