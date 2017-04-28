@@ -1,24 +1,78 @@
+// This will let you use the .remove() function later on
+if (!('remove' in Element.prototype)) {
+  Element.prototype.remove = function() {
+    if (this.parentNode) {
+        this.parentNode.removeChild(this);
+    }
+  };
+}
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiamFrZWNvb2xpZGdlIiwiYSI6IjVKZlBkNDgifQ.3s_arKt-L_B_ybmLWWGBxg';
 
-  // This adds the map to your page
-  var map = new mapboxgl.Map({
-    // container id specified in the HTML
-    container: 'map',
-    // style URL
-    style: 'mapbox://styles/jakecoolidge/civlltrcb009q2jp5njlzz4f2',
+// This adds the map
+var map = new mapboxgl.Map({
+  // container id specified in the HTML
+  container: 'map',
+  // style URL
+  style: 'mapbox://styles/jakecoolidge/civlltrcb009q2jp5njlzz4f2',
     // initial position in [long, lat] format
-    center: [-105.0114, 39.7424],
-    // initial zoom
-    zoom: 13
-  });
+    // center: [-77.0411, 39.9013], //for DC
+  center: [-105.0114, 39.7424], // for Denver
+  // initial zoom
+  zoom: 13
+});
 
-  var stores = {
-    "type": "FeatureCollection",
-    "features": [{
+var breweries = {
+  "type":"FeatureCollection",
+  "features":[
+    {
+      "type":"Feature",
+      "properties":
+      {
+        "name":"Denver Beer Co.",
+        "city":"Denver, CO",
+        "website":"http://denverbeerco.com/",
+        "address":"1695 Platte St"
+      },
+        "geometry":
+        {
+          "type":"Point",
+          "coordinates":[-105.00732421875,39.75830887807336]
+          }
+      },
+    {
+      "type":"Feature",
+      "properties":
+      {
+        "name":"Little Machine Beer","city":"Denver, CO",
+        "website":"https://www.littlemachinebeer.com",
+        "address":"2924 W 20th Av"},
+        "geometry":{
+          "type":"Point",
+          "coordinates":[-105.02474784851074,39.74747043851385]}},
+    {
+      "type":"Feature",
+      "properties":{
+        "name":"Trve Brewing Co.",
+        "city":"Denver, CO",
+        "website":"http://trvebrewing.com/",
+        "address":"227 Broadway #101"},
+        "geometry":{
+          "type":"Point",
+          "coordinates":[-104.9877119064331,39.720053290098164]
+          }
+        }
+  ]
+}
+/* var stores = {
+  "type": "FeatureCollection",
+  "features": [
+    {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-77.034084142948,
+        "coordinates": [
+          -77.034084142948,
           38.909671288923
         ]
       },
@@ -32,11 +86,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrZWNvb2xpZGdlIiwiYSI6IjVKZlBkNDgifQ.3s_arK
         "postalCode": "20005",
         "state": "D.C."
       }
-    }, {
+    },
+    {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-77.049766,
+        "coordinates": [
+          -77.049766,
           38.900772
         ]
       },
@@ -50,11 +106,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrZWNvb2xpZGdlIiwiYSI6IjVKZlBkNDgifQ.3s_arK
         "postalCode": "20037",
         "state": "D.C."
       }
-    }, {
+    },
+    {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-77.043929,
+        "coordinates": [
+          -77.043929,
           38.910525
         ]
       },
@@ -68,11 +126,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrZWNvb2xpZGdlIiwiYSI6IjVKZlBkNDgifQ.3s_arK
         "postalCode": "20036",
         "state": "D.C."
       }
-    }, {
+    },
+    {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-77.0672,
+        "coordinates": [
+          -77.0672,
           38.90516896
         ]
       },
@@ -86,11 +146,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrZWNvb2xpZGdlIiwiYSI6IjVKZlBkNDgifQ.3s_arK
         "postalCode": "20007",
         "state": "D.C."
       }
-    }, {
+    },
+    {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-77.002583742142,
+        "coordinates": [
+          -77.002583742142,
           38.887041080933
         ]
       },
@@ -104,11 +166,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrZWNvb2xpZGdlIiwiYSI6IjVKZlBkNDgifQ.3s_arK
         "postalCode": "20003",
         "state": "D.C."
       }
-    }, {
+    },
+    {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-76.933492720127,
+        "coordinates": [
+          -76.933492720127,
           38.99225245786
         ]
       },
@@ -119,11 +183,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrZWNvb2xpZGdlIiwiYSI6IjVKZlBkNDgifQ.3s_arK
         "postalCode": "20740",
         "state": "MD"
       }
-    }, {
+    },
+    {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-77.097083330154,
+        "coordinates": [
+          -77.097083330154,
           38.980979
         ]
       },
@@ -137,11 +203,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrZWNvb2xpZGdlIiwiYSI6IjVKZlBkNDgifQ.3s_arK
         "postalCode": "20814",
         "state": "MD"
       }
-    }, {
+    },
+    {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-77.359425054188,
+        "coordinates": [
+          -77.359425054188,
           38.958058116661
         ]
       },
@@ -155,11 +223,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrZWNvb2xpZGdlIiwiYSI6IjVKZlBkNDgifQ.3s_arK
         "postalCode": "20190",
         "state": "VA"
       }
-    }, {
+    },
+    {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-77.10853099823,
+        "coordinates": [
+          -77.10853099823,
           38.880100922392
         ]
       },
@@ -173,11 +243,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrZWNvb2xpZGdlIiwiYSI6IjVKZlBkNDgifQ.3s_arK
         "postalCode": "22203",
         "state": "VA"
       }
-    }, {
+    },
+    {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-75.28784,
+        "coordinates": [
+          -75.28784,
           40.008008
         ]
       },
@@ -190,11 +262,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrZWNvb2xpZGdlIiwiYSI6IjVKZlBkNDgifQ.3s_arK
         "postalCode": "19003",
         "state": "PA"
       }
-    }, {
+    },
+    {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-75.20121216774,
+        "coordinates": [
+          -75.20121216774,
           39.954030175164
         ]
       },
@@ -207,11 +281,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrZWNvb2xpZGdlIiwiYSI6IjVKZlBkNDgifQ.3s_arK
         "postalCode": "19104",
         "state": "PA"
       }
-    }, {
+    },
+    {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [-77.043959498405,
+        "coordinates": [
+          -77.043959498405,
           38.903883387232
         ]
       },
@@ -226,75 +302,120 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamFrZWNvb2xpZGdlIiwiYSI6IjVKZlBkNDgifQ.3s_arK
         "state": "D.C."
       }
     }]
-  };
-  // This adds the data to the map
-  map.on('load', function (e) {
-    // Add the data to your map as a layer
-    map.addLayer({
-      "id": "locations",
-      "type": "symbol",
-      // Add a GeoJSON source containing place coordinates and information.
-      "source": {
-        "type": "geojson",
-        "data": stores
-      },
-      "layout": {
-        "icon-image": "restaurant-15",
-        "icon-allow-overlap": true,
-      }
-    });
-    // Initialize the list
-    buildLocationList(stores);
+  }; */
+// This adds the data to the map
+map.on('load', function (e) {
+  // This is where your '.addLayer()' used to be, instead add only the source without styling a layer
+  map.addSource("places", {
+    "type": "geojson",
+    "data": breweries
   });
+  // Initialize the list
+  buildLocationList(breweries);
 
+});
 
-  function buildLocationList(data) {
-    for (i = 0; i < data.features.length; i++) {
-      // Create an array of all the stores and their properties
-      var currentFeature = data.features[i];
-      // Shorten data.feature.properties to just `prop` so we're not
-      // writing this long form over and over again.
-      var prop = currentFeature.properties;
-      // Select the listing container in the HTML
-      var listings = document.getElementById('listings');
-      // Append a div with the class 'item' for each store
-      var listing = listings.appendChild(document.createElement('div'));
-      listing.className = 'item';
-      listing.id = "listing-" + i;
+// This is where your interactions with the symbol layer used to be
+// Now you have interactions with DOM markers instead
+breweries.features.forEach(function(marker, i) {
+  // Create an img element for the marker
+  var el = document.createElement('div');
+  el.id = "marker-" + i;
+  el.className = 'marker';
+  el.style.left='-28px';
+  el.style.top='-46px';
+  // Add markers to the map at all points
+  new mapboxgl.Marker(el)
+      .setLngLat(marker.geometry.coordinates)
+      .addTo(map);
 
-      // Create a new link with the class 'title' for each store
-      // and fill it with the store address
-      var link = listing.appendChild(document.createElement('a'));
-      link.href = '#';
-      link.className = 'title';
-      link.dataPosition = i;
-      link.innerHTML = prop.address;
+  el.addEventListener('click', function(e){
+      // 1. Fly to the point
+      flyToStore(marker);
 
-      // Create a new div with the class 'details' for each store
-      // and fill it with the city and phone number
-      var details = listing.appendChild(document.createElement('div'));
-      details.innerHTML = prop.city;
-      if (prop.phone) {
-        details.innerHTML += ' &middot; ' + prop.phoneFormatted;
+      // 2. Close all other popups and display popup for clicked store
+      createPopUp(marker);
+
+      // 3. Highlight listing in sidebar (and remove highlight for all other listings)
+      var activeItem = document.getElementsByClassName('active');
+
+      e.stopPropagation();
+      if (activeItem[0]) {
+         activeItem[0].classList.remove('active');
       }
 
-    }
-  }
+      var listing = document.getElementById('listing-' + i);
+      listing.classList.add('active');
 
-  function flyToStore(currentFeature){
-    map.flyTo({
+  });
+});
+
+
+function flyToStore(currentFeature) {
+  map.flyTo({
       center: currentFeature.geometry.coordinates,
       zoom: 15
     });
-  }
+}
 
-function createPopUp(currentFeature){
-  var popUps = document.getElementbyClassName ('mapboxgl-popup');
-  // check if there is already a popup on the map and if so, remove it
+function createPopUp(currentFeature) {
+  var popUps = document.getElementsByClassName('mapboxgl-popup');
   if (popUps[0]) popUps[0].remove();
 
+
   var popup = new mapboxgl.Popup({closeOnClick: false})
-  .setLngLat(currentFeature.geometry.coordinates)
-  .setHTML('<h3>Sweetgreen</h3>' +
-    '<h4>')
+        .setLngLat(currentFeature.geometry.coordinates)
+        .setHTML('<h3>' + currentFeature.properties.name + '</h3>' +
+          '<h4>' + currentFeature.properties.address + '</h4>')
+        .addTo(map);
+}
+
+
+function buildLocationList(data) {
+  for (i = 0; i < data.features.length; i++) {
+    var currentFeature = data.features[i];
+    var prop = currentFeature.properties;
+
+    var listings = document.getElementById('listings');
+    var listing = listings.appendChild(document.createElement('div'));
+    listing.className = 'item';
+    listing.id = "listing-" + i;
+
+    var link = listing.appendChild(document.createElement('a'));
+    link.href = '#';
+    link.className = 'title';
+    link.dataPosition = i;
+    link.innerHTML = prop.name;
+
+    var details = listing.appendChild(document.createElement('div'));
+    details.innerHTML = prop.city;
+    if (prop.website) {
+      details.innerHTML += ' &middot; ' + prop.website;
+    }
+
+
+
+    link.addEventListener('click', function(e){
+      // Update the currentFeature to the store associated with the clicked link
+      var clickedListing = data.features[this.dataPosition];
+
+      // 1. Fly to the point
+      flyToStore(clickedListing);
+
+      // 2. Close all other popups and display popup for clicked store
+      createPopUp(clickedListing);
+
+      // 3. Highlight listing in sidebar (and remove highlight for all other listings)
+      var activeItem = document.getElementsByClassName('active');
+
+      if (activeItem[0]) {
+         activeItem[0].classList.remove('active');
+      }
+      this.parentNode.classList.add('active');
+
+
+
+
+    });
+  }
 }
