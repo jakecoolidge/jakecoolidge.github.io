@@ -1,0 +1,22 @@
+{
+  "type":"FeatureCollection",
+  "features":[
+    {"type":"Feature",
+      "properties":{"name":"Denver Beer Co."},
+      "geometry":{
+        "type":"Point",
+        "coordinates":[-105.00732421875,39.75830887807336]
+      }
+    },
+    {"type":"Feature",
+      "properties":{"name":"Little Machine Beer"},
+      "geometry":{
+        "type":"Point",
+        "coordinates":[-105.02474784851074,39.74747043851385]
+      }
+    },
+    {"type":"Feature",
+      "properties":{"name":"Trve Brewing Co."},
+      "geometry":{"type":"Point","coordinates":[-104.9877119064331,39.720053290098164]}
+    }]
+}
