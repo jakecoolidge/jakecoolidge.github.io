@@ -104,11 +104,12 @@ body {
         .marker {
           border: none;
           cursor: pointer;
-          height: 28px;
-          width: 28px;
+          height: 40px;
+          width: 40px;
           background-image: url(new-marker-2c.png);
           background-color: rgba(0, 0, 0, 0);
-          /*transform: translate(7px, 0px, 0);*/
+          /*transform: translate(28px, 50%translate());
+          transform: translateX(50px);*/
         }
 
         .clearfix { display:block; }
@@ -122,11 +123,15 @@ body {
 
         /* Marker tweaks */
         .mapboxgl-popup {
-          /*padding-bottom: 50px;*/
+          padding-top: 10px;
+          padding-left: 42px;
         }
 
         .mapboxgl-popup-close-button {
-          display:none;
+          /*display:none;*/
+          color: #fff;
+          font-size: 1em;
+          font-weight: 800;
         }
         .mapboxgl-popup-content {
           font:400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
