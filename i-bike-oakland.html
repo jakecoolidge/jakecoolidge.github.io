@@ -6,13 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Jake Coolidge Cartography</title>
+  <title>I[bike]Oakland Bikeways Map</title>
   <link rel="icon" type="image/png" href="img/icon2.png" type="image/x-icon" />
   <meta name="description" content="Online porfolio for Jake Coolidge, featuring cartography and design. Hand-drawn maps, maps for academic presses, guide maps, and other explorations. 
 ">
 
   <link rel="stylesheet" href="css/main.css">
-  <link rel="canonical" href="http://localhost:4000/">
+  <link rel="canonical" href="http://localhost:4000/i-bike-oakland.html">
   <!--link rel="alternate" type="application/rss+xml" title="Jake Coolidge Cartography" href="http://localhost:4000/feed.xml"-->
 </head>
 
@@ -45,43 +45,83 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <article class="post">
 
-  <!--h1 class="page-heading">Posts</h1-->
+  <header class="post-header">
+    <h1 class="post-title">I[bike]Oakland Bikeways Map</h1>
+  </header>
 
-  <p><em><a href="http://cartographicperspectives.org/index.php/journal/issue/view/cp82">Cartographic Perpectives no. 82</a> is now available! The front cover features an excerpt from the map "The Western Shore of Lake Michigan and Environs".</em></p>
+  <div class="post-content">
+    <p style="margin-bottom: 0;">Click to cycle through images.</p>
+<p><img src="img/i-bike-oakland-1.png" id="imgClickToChange" onclick="changeImage()" style="cursor:pointer; width:700px;" /></p>
 
-  <!--previous site layout (columbia river watershed splash image)-->
-  <!--a href="columbia-river-watershed.html">
-    <img src="img/columbia-river-watershed.png">
-  </a>
+<div class="text">
 
-  <p style="line-height: 1.5em;">
-    <span style="font-weight: 800; font-size: 2em; color: #424242; letter-spacing: 0.3em;">works</span>
-    <a href="nps.html">Web mapping for the National Park Service</a> |
-    <a href="western-shore-lake-michigan.html">The Western Shore of Lake Michigan and Environs</a> | 
-    <a href="columbia-river-watershed.html">Columbia River Watershed</a> |
-    <a href="california.html">California</a> |
-    <a href="regional-rapid-transit-bay-area.html">Regional Rapid Transit for the Bay Area</a> |
-    <a href="i-bike-oakland.html">i[bike]Oakland Bikemap</a> |
-    <a href="literary-lab-pamphlets.html">Literary Lab Pamphlets</a> |
-    <a href="graceland-cemetery.html">Graceland Cemetery Map and Guide</a> |
-    <a href="cartographer-plague-doctor.html">Cartographer/Plague Doctor</a> |
-    <a href="ravenswood-city-school-district.html">Ravenswood City School District</a> |
-    <a href="russian-formalism-digital-humanities.html">Russian Formalism and the Digital Humanities</a> |
-    <a href="redemption-songs.html"><em>Redemption Songs</em> by Lea Vandervelde</a> |
-    <a href="cesta-anthology-2013.html"><em>The CESTA Anthology</em> 2013</a> |
-    <a href="wilderness.html"><em>Wilderness</em> by Debra Bloomfield</a> |
-    <a href="micromegas.html">Microm&eacute;gas</a> |
-    <a href="he-who-laughs-last.html"><em>He Who Laughs Last</em> by Dave Sokolowski</a> | 
-    <a href="custom-built-empire.html">Custom Built Empire</a> |
-    <a href="languages-of-the-caucasus.html">Languages of the Caucasus</a> |
-    <a href="consulate.html">Consulate</a> |
-    <a href="a-nervous-state.html"><em>A Nervous State</em> by Nancy Rose Hunt</a> |
-    <a href="historic-washington-dc.html">Historic Washington D.C.</a>
-  </p-->
+	<p>2010&ndash;2017. Initial data compiled using ArcGIS Desktop and designed with Adobe Illustrator, Photoshop, and InDesign. Starting with the 2014 edition, data handled with MAPublisher.</p>
+	
+	<p>I implemented a major overhaul of the look and feel for the I[bike]Oakland Bikeways map with the 2017 edition. For one, I've learned a few things about cartography since I designed the original 2010 edition while working as a planning intern with <a href="http://www2.oaklandnet.com/Government/o/PWA/o/EC/s/BicycleandPedestrianProgram/index.htm">the Oakland Bicycle and Pedestrian Facilities Program.</a> In addition, the increasingly filled-in and complex bikeways network and the addition of a new (for Oakland) bikeway type, the protected bike lane, prompted me to reevaulate a host of interrelated map elements.</p>
 
-  <div style="float:left;">
+	<p>I changed the primary typeface from Gill Sans to Avenir Next Condensed. My early grad-school infatuation with Gill Sans (and its invocation the iconic London Tube Map) at last gave way under increasing labeling demands. Avenir Next Condensed is not my favorite. Any typeface with "condensed" in its name is probably off to a sub-optimal start as it is, but I found it minimally offensive at first, and it has even grown on me over time. And it is much more practical for my purposes than one of my true favorites, Gotham, which I used in my <a href="regional-rapid-transit-bay-area.html">fantasy BART map</a>. Even the bike shop/kitchen labels were converted from American Typewriter to American Typewriter Condensed. The street network labels were completely regenerated and placed utilizing the base-level labeling tools in MAPublisher&mdash;in other words, hand-tuned without the benefit of LabelPro.<p>
+
+	<p> With this edition I'm making much better use of MAPublisher's label haloing tools for reducing visual conflicts between labels and bikeways. My reliance on halos has generally been greatly reduced by the softer palette I've chosen for large filled areas, primarily park areas and open water. Also dropped are the black casings that enclosed the bikeway network in previous editions. Casings are now reserved for protected bikeways, like the newly installed protected bike lane along Telegraph Ave through KONO. Now the important features truly get the most ink. Overall I think the result provides a fresh new look for a map entering its eighth edition, with many thousands of copies freely distributed throughout the East Bay.</p>
+
+	<p>Some additional notes on this map: each year we incorporate edits based on the Bicycle and Pedestrian Facilities Program’s success in augmenting the bikeway network during the previous year. I depict the underlying street network and its hierarchy by tapping into OpenStreetMap, utilizing the extracts now hosted by Mapzen. I devised a more sophisticated visual treatment of elevated highways and overpasses with the fourth (2013) edition. Beautifully lithographed, it’s best viewed in print and fits in your pocket (3.5 x 5 inches folded); pick up a free copy at most Oakland bike shops. A PDF version of the 2012 edition is available <a href="http://www2.oaklandnet.com/oakca1/groups/pwa/documents/marketingmaterial/oak034712.pdf">here.</a> I wrote about the first edition on my blog, <a href="http://jakecoolidge.wordpress.com/2010/05/08/i-bike-oakland-2010-bikeways-map/">check it out</a> and travel back in time to when I was still a grad student/planning intern. In that post I provide pictures of how the finished map looks folded.</p>
+
+
+<script type="text/javascript">
+var counter = 1;
+
+imgClickToChange.onclick = function(){
+    if(counter == 0){
+        document.getElementById("imgClickToChange").src = "img/i-bike-oakland-1.png";
+        counter++;
+    }
+    else if(counter == 1){
+        document.getElementById("imgClickToChange").src = "img/i-bike-oakland-2.png";
+        counter++;
+    }
+
+    else if(counter == 2){
+        document.getElementById("imgClickToChange").src = "img/i-bike-oakland-3.png";
+        counter++;
+    }
+    else if(counter == 3){
+    	document.getElementById("imgClickToChange").src = "img/i-bike-oakland-4.png";
+        counter++;
+    }
+    else if(counter == 4){
+    	document.getElementById("imgClickToChange").src = "img/i-bike-oakland-5.png";
+        counter++;
+    }
+    else if(counter == 5){
+    	document.getElementById("imgClickToChange").src = "img/i-bike-oakland-6.png";
+        counter++;
+    }
+    else if(counter == 6){
+    	document.getElementById("imgClickToChange").src = "img/i-bike-oakland-2017-west.png";
+        counter++;
+    }
+    else if(counter == 7){
+    	document.getElementById("imgClickToChange").src = "img/i-bike-oakland-2017-east.png";
+        counter = 0;
+    }
+};
+</script>
+</p></p></div>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <!--beginneth the madness-->
+    <div style="float:left;">
 
       <div style="float:left; margin-right: 10px;">
         <a href="mount-rainier.html">
@@ -260,20 +300,7 @@
 
     </div>
 
-
-  
-
-  <!--p>complete <a href="table-of-contents.html">Table of Contents</a></p>
-
-  <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p-->
-
-</div>
-
-      </div>
-    </div>
-
-    <footer class="site-footer">
-      <div class="wrapper">
+<!--endeth the madness-->
 
     <h2 class="footer-heading">Jake Coolidge Cartography</h2>
 
@@ -314,7 +341,9 @@
     <p class="post-meta">All content &#169; 2009 &ndash; <script>document.write(new Date().getFullYear());</script> Jake Coolidge. All rights reserved. This website built and maintained by Jake Coolidge with a big assist from <a href="http://jekyllrb.com">Jekyll</a>. Last updated 8 October 2017.</p>
 
   </div>
-  </footer>
+
+</footer>
+
 
   </body>
 
