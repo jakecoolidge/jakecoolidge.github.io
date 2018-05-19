@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<!-- Looking good an nice dialog in your commenting. Just missing a page title. -->
+
+<head>
+	<meta charset=utf-8 />
+	<!-- How did we miss the page tile! I don't know!-->
+	<title>Seattle: Notes on the Emerald City</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+	<!--link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"-->
+	<link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
+	<!--link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet"-->
+
+	<!-- Add external javascript libraries -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
+
+	<style>
+		body {
+			width: 100vw;
+			height: 100vh;
+			margin: 0;
+			padding: 0;
+			font-family: 'Droid Serif', sans-serif;
+			background: linear-gradient(180deg, #fff, rgb(196, 210, 217));
+			/* experimenting with a linear gradient*/
+			font-size: 100%;
+		}
+
+		section {
+			/*width: 80%;*/
+			margin: 20px auto;
+		}
+
+		.two-column {
+			float: left;
+			width: 49%;
+			margin-right: 1%;
+		}
+
+		.below-columns {
+			display: inline-block;
+			width: 100%;
+		}
+
+		h1,
+		h2,
+		h3 {
+			font-size: 2em;
+			letter-spacing: .04em;
+			font-weight: 500;
+			font-family: 'Roboto', serif;
+		}
+
+		h1 {
+			position: absolute;
+			font-size: 2em;
+			z-index: 800;
+			padding-left: 50;
+			top: 10px;
+			left: 15px;
+			padding: 10px 15px;
+			background: rgba(256, 256, 256, .4);
+			border: 1px solid grey;
+			border-radius: 3px;
+			z-index: 800;
+		}
+
+		h2 {
+			font-size: 1.5em;
+		}
+
+		h3 {
+			font-size: 1.25em;
+		}
+
+		p {
+			font-size: 1em;
+			line-height: 1.5em;
+			/*width: 50%;*/
+		}
+
+		a {
+			color: rgb(49, 116, 164);
+			font-weight: bold;
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		ul {
+			padding-left: 20px;
+		}
+
+		li {
+			margin: 10px 0;
+		}
+
+		#map {
+			width: 100%;
+			top: 0;
+			bottom: 0;
+			/*960px;
+			height: 540px;
+			margin: 10px auto;
+			border: 2px solid #d3d3d3;*/
+			position: absolute;
+		}
+
+		#about {
+			position: absolute;
+			bottom: 20px;
+			left: 15px;
+			width: 280px;
+			padding: 0 15px;
+			background: rgba(256, 256, 256, .4);
+			border: 1px solid grey;
+			border-radius: 3px;
+			z-index: 800;
+		}
+
+		.icon:hover {
+			opacity: 0.8;
+		}
+
+		.leaflet-popup-content h3 {
+			font-family: 'Roboto', sans-serif;
+			font-size: 1.25em;
+			margin-bottom: 4px;
+		}
+
+		.leaflet-popup-content p {
+			font-family: 'Droid Serif', serif;
+			margin: 3px 0 6px;
+			font-size: 1.1em;
+		}
+
+		img {
+			width: 100%;
+		}
+
+		.img-caption {
+			font-size: 0.75em;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!--added sections to better organize the content-->
+	<section>
+		<h1>old Seattle haunts</h1>
+	</section>
+
+	<section>
+		<div id='map'></div>
+	</section>
+
+	<section id="about">
+		<h2>about this map</h2>
+		<p>A few places where I've spent some time during my long relationship with Seattle.</p>
+		<p>Map authored by Jake Coolidge; see also: <a href="https://github.com/jakec-uky">Github,</a> <a href="https://twitter.com/jccartography">Twitter,</a> <a href="http://www.jakecoolidgecartography.com">mapping portfolio.</a></p>
+	</section>
+
+	<!--section>
+		<p style="width:49%;">The map shows some places where I've spent some time during my long relationship with Seattle.</p>
+		<div class="two-column">
+			<h2>notes on the Emerald City</h2>
+			<p>Seattle creeps into the national (and international) consciousness in weird ways. Boeing rocketed it into the aerospace industry, particularly in the post-war era, and its iconic Space Needle is emblematic of that willingness to innovate and an optimism
+				in progress writ large. It's easy to focus on the corporations based here that have shaped technology and popular culture. A few are titanic in their worldwide reach: Microsoft, Starbucks, Amazon. It's hard to imagine that Seattle used to supply most
+				of San Francisco's coal (!) during the Gold Rush, but its old maritime and logging roots can still be found amidst the relentless advance of Big Tech.</p>
+			<img src="http://www.theuncool.com/wp-content/uploads/2012/09/singlesapt.jpg" alt="still from the 1992 film Singles featuring Bridget Fonda, Matt Dillon, and Chris Cornell">
+			<p class="img-caption">Bridget Fonda, Matt Dillon, and Chris Cornell of Soundgarden in "Singles" (1992); image from <a href="http://www.theuncool.com/films/singles/singles-filming-locations-then-and-now/">theuncool.com</a></p>
+			<p>It's also easy to view Seattle through the lens of popular television (Frasier, which was actually filmed in Vancouver, BC., Grey's Anatomy) and films (Sleepless in Seattle, Singles). It was the music featured in Singles that really put Seattle on
+				the map for me, and though the grunge era is over 20 years in the rear-view mirror, it continues to host an extraordinarily active and diverse music scene, though it's more local in its reach these days&mdash;which is a good thing.</p>
+		</div>
+
+		<div class="two-column">
+			<ul>
+				<li>See my projects <a href="https://github.com/jakec-uky">on GitHub</a></li>
+				<li>Follow me <a href="https://twitter.com/jccartography">on Twitter</a></li>
+				<li>Visit my <a href="http://www.jakecoolidgecartography.com">mapping portfolio</a></li>
+			</ul>
+		</div>
+
+	</section-->
+
+	<script src="data/route.js"></script>
+
+	<script>
+	// map options
+			var options = {
+					center: [47.648938, -122.344577], // now Fremont, center of the universe
+					zoom: 12,
+					zoomControl: false
+			}
+
+			// create Leaflet map
+			var map = L.map('map', options);
+
+			L.control.zoom({
+				position: 'topright'
+			}).addTo(map);
+
+			// request map tiles and add them to the map in one go
+			var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/jakecoolidge/cja6wyt144vdl2qqww3o9ylok/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamFrZWNvb2xpZGdlIiwiYSI6IjVKZlBkNDgifQ.3s_arKt-L_B_ybmLWWGBxg', {
+					attribution: 'Style by Jake Coolidge &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, built using <a href="https://www.mapbox.com">Mapbox</a>',
+					//subdomains: 'abcd',
+					//maxZoom: 19
+			}).addTo(map);
+
+			/*
+			var myLocations = {
+			describeMe: function() { // function to describe locations
+				// declare variables at top of function
+				var myList = "";
+				// loop through all features to match the one called
+				for (i = 0; i < this.features.length; i++) {
+					// Build an informative sentence for each feature.
+					myList += this.features[i].name + ": " + this.features[i].properties.details;
+					if (i === this.features.length - 1) {
+						// at the end of the list give a final message.
+						myList += " Okay! That's all of my sites. ";
+						break;
+					} else {
+						myList += " ";
+					}
+				}
+				return myList
+			},
+			features: [{
+					name: "Fremont Troll",
+			*/
+			var myLocations = [{
+					name: "Fremont Troll",
+					properties: {
+						coordinates: [47.650977,-122.347405],
+						type: "art",
+						details: "<image src='https://upload.wikimedia.org/wikipedia/en/d/d3/FremontTroll.jpg' alt='Fremont Troll, Seattle'>An endearing public sculpture built in 1990; image source Wikipedia."
+					}
+				},
+				{
+					name: "Band rehearsal space",
+					properties: {
+						coordinates: [47.676242,-122.363614],
+						type: "art",
+						details: "<image src='img/rehearsal-space.png' alt='interior of band rehearsal-space, Seattle'>Musty old jam space; recorded a demo here"
+					}
+				},
+				{
+					name: "Print Zero Studios",
+					properties: {
+						coordinates: [47.595246,-122.326972],
+						type: "art",
+						details: "<image src='img/print-zero-studios.png' alt='interior of Print Zero Studios, Seattle'>Awesome fine-art printmaking shop run by Brian Lane"
+					}
+				},
+				{
+					name: "The Tin Hat",
+					properties: {
+						coordinates: [47.676073, -122.362981],
+						type: "beer",
+						details: "$5 PBR pitchers after band practice, pinball"
+					}
+				},
+				{
+					name: "The Duck Island Saloon",
+					properties: {
+						coordinates: [47.682255, -122.344690],
+						type: "beer",
+						details: "Where I learned about craft beer"
+					}
+				},
+				{
+					name: "The College Inn Pub",
+					properties: {
+						coordinates: [47.655536, -122.313168],
+						type: "beer",
+						details: "Basement location frequented by depressed grad students; billiards and darts"
+					}
+				},
+				{
+					name: "The Zoo Tavern",
+					properties: {
+						coordinates: [47.639811, -122.326093],
+						type: "beer",
+						details: "Eastlake joint"
+					}
+				},
+				{
+					name: "The Sloop",
+					properties: {
+						coordinates: [47.668746, -122.394321],
+						type: "beer",
+						details: "Home of the slooper-size"
+					}
+				},
+				{
+					name: "Fremont Brewing Co.",
+					properties: {
+						coordinates: [47.648938, -122.344577],
+						type: "beer",
+						details: "I know a guy who works on the canning line here"
+					}
+				},
+				{
+					name: "The Offramp",
+					properties: {
+						coordinates: [47.618599, -122.329133],
+						type: "music",
+						details: "One of my favorite venues"
+					}
+				},
+				{
+					name: "Chop Suey",
+					properties: {
+						coordinates: [47.613772, -122.314476],
+						type: "music",
+						details: "Used to be the Breakroom"
+					}
+				},
+				{
+					name: "Velvet Elvis",
+					properties: {
+						coordinates: [47.600864, -122.334854],
+						type: "music",
+						details: "Underground spot closed many years ago. Saw Modest Mouse play in front of 50 people here."
+					}
+				},
+				{
+					name: "The Josephine",
+					properties: {
+						coordinates: [47.676012, -122.363923],
+						type: "music",
+						details: "Too bad this place couldn't keep going."
+					}
+				},
+				{
+					name: "Monkey Pub",
+					properties: {
+						coordinates: [47.667318, -122.317423],
+						type: "music",
+						details: "Played a pretty weird set here during a guy's birthday party."
+					}
+				},
+				{
+					name: "Golden Gardens",
+					properties: {
+						type: "cloud gazing",
+						coordinates: [47.69197017916109, -122.40434646606444],
+						details: "Bonfires!"
+					}
+				},
+				{
+					name: "Sakuma Viewpoint",
+					properties: {
+						type: "cloud gazing",
+						coordinates: [47.65166445487062, -122.31480360031128],
+						details: "My favorite cloud-gazing spot."
+					}
+				},
+				{
+					name: "Arboretum",
+					properties: {
+						type: "cloud gazing",
+						coordinates: [47.63838615694347, -122.2956097126007],
+						details: "Good cloud-gazing, though the trees steal the show."
+					}
+				},
+				{
+					name: "Gas Works",
+					properties: {
+						type: "cloud gazing",
+						coordinates: [47.644892005001125, -122.33538150787352],
+						details: "Kites and rusting industrial hulks with interesting graffiti."
+					}
+				},
+				{
+					name: "Discovery Park",
+					properties: {
+						type: "cloud gazing",
+						coordinates: [47.658595007050636, -122.41833686828613],
+						details: "Was always a bit of a trek to get to, but worth it."
+					}
+				}
+			];
+
+			var typeIconURL = [
+				"svgs/art.svg",
+				"svgs/beer.svg",
+				"svgs/music.svg",
+				"svgs/cloud-gazing.svg"
+			];
+
+
+
+		for (var i = 0; i < myLocations.length; i++) {
+			//build location popup
+			var props = myLocations[i].properties;
+			//console.log(myLocations[i].properties);
+			var locationPopup = "<h2>" + myLocations[i].name + "</h2><p>" + props.details + "</p>";
+			//build Leaflet icon by calling a function, called createIcon, that determines type of location and assigns the icon appropriately
+			var iconLocation = createIcon(props.type); //pass typeLocation to the function
+			L.marker(props.coordinates, {
+				icon: iconLocation //insert returned function value, from createIcon
+			})
+			.addTo(map)
+			.bindPopup(locationPopup) //variable was created above
+		};
+
+		function createIcon(typeOfLocation) { //note the input parameter has a different name
+			var iconURL = "", //create/declare a blank iconURL variable that is local in scope
+					iconSize = 27; //declare default size
+						if (typeOfLocation == "art") {
+							iconURL = typeIconURL[0]; //typeIconURL is available globally so you don't have to pass it in as a parameter
+							//iconSize = 27;
+						} else if (typeOfLocation == "beer") { //this is throwing a syntax error: unexpected token {, fixed by adding if
+							iconURL = typeIconURL[1];
+							//iconSize = 27;
+						} else if (typeOfLocation == "music") {
+							iconURL = typeIconURL[2];
+							//iconSize = 27;
+						} else if (typeOfLocation == "cloud gazing") {
+							iconURL = typeIconURL[3];
+						};
+
+						var iconLocation = L.icon({
+							iconUrl: iconURL,
+							iconSize: iconSize,
+							popupAnchor: [0, -15]
+						});
+
+						return iconLocation;
+		};
+
+		var myRoute = L.geoJson(routeData, {
+			filter : function(feature) {
+				if(feature.geometry.type == "LineString") {
+					return feature;
+				}
+			},
+			style : function(feature) {
+				return {
+					color: "#005DAA",
+					weight: 4,
+					opacity: 0.6,
+					dashArray: "5, 5"
+				}
+			}
+		}).addTo(map);
+
+		var myStops = L.geoJson(routeData, {
+			filter : function(feature) {
+				if(feature.geometry.type == "Point") {
+					return feature;
+				}
+			},
+			onEachFeature : function(feature, layer) {
+				layer.bindTooltip(feature.properties.name);
+			}
+		}).addTo(map);
+
+		myStops.on('click', function(e) {
+			map.setView(e.latlng, 15);
+		});
+
+		myRoute.eachLayer(function(layer) {
+			layer.on('mouseover', function(e) {
+				e.target.setStyle({
+					color: 'orange',
+					weight: 8
+				});
+			});
+			layer.on('mouseout', function(e) {
+				e.target.setStyle({
+				color: "#005DAA",
+				weight: 4
+			});
+		});
+	});
+
+	/*map.on('click', function(f) {
+			f.target.setStyle({
+				position: 'absolute'
+			});
+		});*/
+
+	</script>
+
+</body>
+
+</html>

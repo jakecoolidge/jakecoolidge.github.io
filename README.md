@@ -1,2 +1,2 @@
-# jakecoolidge.github.io
-under construction
+# jakec-uky.github.io
+portfolio page for MAP673
