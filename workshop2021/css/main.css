@@ -333,7 +333,7 @@ pre {
   max-width: 1000px;
   margin: 0 auto;
   margin-bottom: 30px; }
-  .post-content h2 {
+  /*disabling for now .post-content h2 {
     font-size: 32px; }
     @media screen and (max-width: 800px) {
       .post-content h2 {
@@ -347,7 +347,8 @@ pre {
     font-size: 20px; }
     @media screen and (max-width: 800px) {
       .post-content h4 {
-        font-size: 18px; } }
+        font-size: 18px; } }*/
+.post-content hr {margin-bottom: 30px;}
 
 .text {
   max-width: 600px; }
