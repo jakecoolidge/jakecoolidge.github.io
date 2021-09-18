@@ -318,6 +318,16 @@ pre {
     .post-title {
       font-size: 1.5em; } }
 
+.item-title {
+  font-size: 1.25em;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  color: #424242;}
+  @media screen and (max-width: 800px) {
+    .post-title {
+      font-size: 1.5em; } }
+
 .post-content {
   /*added 2018.12.05*/
   max-width: 1000px;
