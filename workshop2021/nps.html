@@ -64,7 +64,9 @@
 	<p>Park Tiles is the general-use, visitor-oriented web basemap for the National Park Service, and is used in a number of maps on nps.gov. Example live versions can be viewed on the <a href="https://www.nps.gov/maps/tools/park-tiles/#4/39.03/-95.98">NPS maps page,</a> <a href="https://www.nps.gov/yell/planyourvisit/parkroads.htm">the Yellowstone Live Roads map,</a> and <a href="https://www.nps.gov/goga/planyourvisit/maps.htm">Golden Gate NRA,</a> among many others. Read more <a href="https://www.nps.gov/subjects/gisandmapping/npmap.htm#4/39.03/-95.98">about Park Tiles and the closely-linked tools my team develops and maintains</a> to bring web maps to the National Park Service website.</p>
 	
 	  </div>
+	  
 	  <hr>
+	  
 	  <h2 class="item-title">Amtrak Trails &amp; Rails</h2>
 	  
 	  <p><a href="https://www.nps.gov/subjects/amtraktrailsandrails/trains.htm"><img src="img/nps-amtrak.png" width="861px" /></a></p>
@@ -74,6 +76,59 @@
 		  
 		  <p>More information coming soon.</p>
 	  </div>
+	  
+	  <hr>
+	  
+	  <h2 class="item-title">Yellowstone Live</h2>
+	  
+	  <iframe src="slides/yellowstone-live-slides.html" style="width: 100%; height: 500px; border-width: 0;"></iframe>
+	  
+	  <div class="text">
+		  <p>The Yellowstone Live project is comprised of a series of wall monitors, interactive kiosks, and web maps that convey current conditions at the park to visitors. An initial version had been in operation for a couple of years when, in the spring of 2017, park staff determined that some of the colors used in the application might not be accessible to color-blind viewers. In addition, colors selected to convey "open" vs. "closed" were not used in a consistent way across the various displays. Specifically for the road status map, park staff also requested a unified set of road symbols that would elimniate the need to toggle different map states with radio buttons. I assessed current conditions using the <a href="http://colororacle.org">Color Oracle</a> simulator and developed alternative color and map symbols schemes, which I helped implement in the code base once designs were finalized. I adapted the slide deck above from my presentations to park staff and the project team. Use these links to access the live maps for <a href="https://www.nps.gov/yell/planyourvisit/parkroads.htm">roads</a> and <a href="https://www.nps.gov/yell/planyourvisit/campgrounds.htm">campgrounds.</a></p>
+
+	  </div>
+	  
+	  <hr>
+	  
+	  <h2 class="item-title">NPS System Map</h2>
+	  
+	  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+
+<div id="image-map" style="width: 100%; height: 600px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
+<p>2018. Adobe Illustrator/Avenza MAPublisher. Data compiled in QGIS, including raster data manipulation.</p>
+
+<div class="text">
+	<p>In 2017, I took over management of my division's comprehensive map of all National Park Service units, regions, affiliated sites, national trails, national rivers, and national heritage areas. In doing so, I shifted the workflow over to MAPublisher to give me greater flexibility for cartographic symbolization and overall layout design.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
+
+<script type="text/javascript">
+	var map = L.map('image-map', {
+	  minZoom: 1,
+	  maxZoom: 4,
+	  center: [0, 0],
+	  zoom: 1,
+	  crs: L.CRS.Simple
+	});
+
+	// dimensions of the image
+	var w = 2880,
+	    h = 2118,
+	    url = '../img/nps-system-map-jan-2018-web.jpg';
+
+	// calculate the edges of the image, in coordinate space
+	var southWest = map.unproject([0, h], map.getMaxZoom()-1);
+	var northEast = map.unproject([w, 0], map.getMaxZoom()-1);
+	var bounds = new L.LatLngBounds(southWest, northEast);
+
+	// add the image overlay, 
+	// so that it covers the entire map
+	L.imageOverlay(url, bounds).addTo(map);
+
+	// tell leaflet that the map is exactly as big as the image
+	map.setMaxBounds(bounds);
+</script>
 
 </article>
 
