@@ -355,6 +355,9 @@ pre {
   background-image: url(../img/nps-park-mobile-thumb-wide.jpg);
   /*background-size: 1000px;*/ }
 
+.bg-thumb-amtrak {
+  background-image: url(../img/nps-amtrak-thumb-wide.png); }
+
 .bg-thumb-yellowstone-live {
   background-image: url(../img/yellowstone-live-thumb-wide.jpg); }
 
