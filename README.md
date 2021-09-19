@@ -1,2 +1,2 @@
-# jakec-uky.github.io
-portfolio page for MAP673
+# Jake Coolidge Cartography
+portfolio page
