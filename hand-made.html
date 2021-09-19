@@ -269,8 +269,8 @@ imgClickToChange_presswork.onclick = function(){
       url = '../img/columbia-river-watershed.png';
 
   // calculate the edges of the image, in coordinate space
-  var southWest = map.unproject([0, h], map.getMaxZoom()-1);
-  var northEast = map.unproject([w, 0], map.getMaxZoom()-1);
+  var southWest = map2.unproject([0, h], map2.getMaxZoom()-1);
+  var northEast = map2.unproject([w, 0], map2.getMaxZoom()-1);
   var bounds = new L.LatLngBounds(southWest, northEast);
 
   // add the image overlay, 
@@ -284,6 +284,52 @@ imgClickToChange_presswork.onclick = function(){
 <hr>
 
 <h2 class="item-title" id="california">California</h2>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+
+<div id="image-map3" style="width: 100%; height: 300px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
+<p>2012. Pencil and ink on paper. 55" wide by 13.5" tall.</p>
+
+<div class="text">
+  
+  <p>I completed this map in October 2012, just in time to exhibit it in the Map Gallery at the NACIS (North American Cartographic Information Society) Annual Meeting in Portland, Oregon. I spent a portion of most of my weekends from December 2011 to October 2012 working in earnest on the project, though I had developed sketches and conceptual frameworks for well over a year prior to actually drawing.</p>
+
+  <p>I gave a talk about this work at the 2013 AAG (Association of American Geographers) conference in Los Angeles, as part of a session organized with Nicolas Bauch and Rick Miller titled, "We Once Made Places With Images." My thanks to Nick and Rick for putting together such an interesting session, and to all the attendees who came up to the 30th floor of the Bonaventure Hotel to participate. Below is the abstract as it appeared in the AAG conference catalog:</p>
+
+  <p>Drawing a map by hand with pencil and pen on paper brings into sharp relief the many decisions at the core of the cartographer's craft&mdash;generalization and abstraction, label placement, the symbolization of features, among others&mdash;in an era where geographic information systems can automate many of these tasks and obscure the process from the map designer. I use hand-drawn map-making to reconnect with these processes in a tangible way, while making a tenuous connection to maps made in the mid-20th century, both venerable (the landform maps by Erwin Raisz, the perspective maps by Richard Edes Harrison) and whimsical (maps of Middle Earth by J.R.R. and Christopher Tolkien, promotional/tourism/souvenir maps). An imaginary perspective view from above facilitates a personal expression of the idea of "California" as both a geographic whole and a conglomeration of numerous regions, localities, and geomorphologic features. What is gained in this process and what is lost, how can the exposition of pre-digital techniques enhance our modern cartographic training and techniques, and how can reclaiming these practices augment our imagining and expression of place?</p>
+
+  <p>Unauthorized prints of this map recently appeared on Amazon. If you see a print of this map for sale on Amazon, please do not buy it. I have not granted any company permission to sell reprints of my work. Thankfully Amazon pulled the offending entry down fairly promptly when I reported it.</p>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
+
+<script type="text/javascript">
+  var map3 = L.map('image-map3', {
+    minZoom: 1,
+    maxZoom: 4,
+    center: [0, 0],
+    zoom: 1,
+    crs: L.CRS.Simple
+  });
+
+  // dimensions of the image
+  var w = 3222,
+      h = 800,
+      url = '../img/california.png';
+
+  // calculate the edges of the image, in coordinate space
+  var southWest = map3.unproject([0, h], map3.getMaxZoom()-1);
+  var northEast = map3.unproject([w, 0], map3.getMaxZoom()-1);
+  var bounds = new L.LatLngBounds(southWest, northEast);
+
+  // add the image overlay, 
+  // so that it covers the entire map
+  L.imageOverlay(url, bounds).addTo(map3);
+
+  // tell leaflet that the map is exactly as big as the image
+  map3.setMaxBounds(bounds);
+</script>
 
 <hr>
 
