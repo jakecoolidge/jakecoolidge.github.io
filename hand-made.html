@@ -333,11 +333,74 @@ imgClickToChange_presswork.onclick = function(){
 
 <hr>
 
-<h2 class="item-title" id="graceland-cemetery">Graceland Cemetery</h2>
+<h2 class="item-title" id="graceland-cemetery">Graceland Cemetery Guide and Map</h2>
+
+<p><img src="img/Graceland_Cemetery_main.png" /></p>
+
+<div class="text">
+
+  <p>2014. 11" wide by 17" tall unfolded; 5.5" wide by 5.67" tall folded. Comprised of Illustrator artwork and hand-penciled background, scanned and adjusted in Photoshop; layout composed in InDesign. Based on OpenStreetMap data compiled in QGIS.</p>
+
+  <p>Developed in close collaboration with Joe Collier, a Chicago-based librarian and photographer who hosts in-depth walking tours of Graceland Cemetery, "the cemetery of architects". This map represents my first attempt at bringing my digital and hand-drawn cartographic techniques into one piece. <a href="http://hidefchicago.com/">HD Design and Printing</a> lithographed the initial edition of 1,000 copies available for purchase at <a href="https://www.etsy.com/shop/BadgesByQuake">Joe Collier's Etsy shop.</a> A subsequent 2-color edition has been published by the Graceland Cemetery trust (7,500 copies are now in circulation) and is available at Graceland Cemetery's visitor center.</p>
+
+  <p>The images below simulate the page sequence of the initial edition as the folded map is opened.</p>
+
+</div>
+
+<p><img src="img/Graceland_frontcover_sm.png" style="border: 1px solid black;" />
+<img src="img/Graceland_p2-3.png" style="border: 1px solid black;" />
+<img src="img/Graceland_p4-5.png" style="border: 1px solid black;" />
+<img src="img/Graceland_side2_fullextent.png" style="border: 1px solid black;" />
+<img src="img/Graceland_backcover.png" style="border: 1px solid black;" /></p>
 
 <hr>
 
 <h2 class="item-title" id="sun-spots"><em>Sun Spots</em> by Dave Sokolowski</h2>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+
+<div id="image-map4" style="width: 100%; height: 600px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
+<p>2017. Pencil on paper.</p>
+
+<div class="text">
+  <p>These are pieces from my second collaboration with Dave Sokolowski&mdash;a series of maps for his Call of Cthulhu scenario <em>Sun Spots.</em> Whereas <a href="he-who-laughs-last.html">our first collaboration</a> centered on a Cthulhu Dark scenario set in modern times with modern, digitally-produced maps and diagrams, <em>Sun Spots</em> is set in mid-1920s Massachusetts, and Dave needed maps that appeared to be artifacts from another time. So not only did I have an opportunity to broaden my hand-drawn map symbolization techniques, I was able to use Illustrator to create a topographic map with a more historic look and feel. All three maps depict a fictitious place in a manner consistent with each other as well as a drawing of the town, as seen from the lake, drawn by another artist. It's fun to create a new place while attempting to maintain some level of believability and consistently with the imaginations of your collaborators.</p>
+
+  <p>The map above is imagined as a tourist's map printed on placemats and distributed at the local Bell &amp; Whistle Caf&eacute;. Below is the topographic map, attributed to the fictitious "Paramount Mining Corporation," and a simple, hand-drawn street map. All three are intended to help players as they orient themselves in the unfolding game scenario.</p>
+
+</div>
+
+<p><img src="img/sun-spots-topographic-map.jpg" /></p>
+
+<p><img src="img/sun-spots-street-map.jpg" /></p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
+
+<script type="text/javascript">
+  var map4 = L.map('image-map4', {
+    minZoom: 1,
+    maxZoom: 4,
+    center: [0, 0],
+    zoom: 2,
+    crs: L.CRS.Simple
+  });
+
+  // dimensions of the image
+  var w = 1703,
+      h = 1101,
+      url = '../img/sun-spots-tourist-map.jpg';
+
+  // calculate the edges of the image, in coordinate space
+  var southWest = map4.unproject([0, h], map4.getMaxZoom()-1);
+  var northEast = map4.unproject([w, 0], map4.getMaxZoom()-1);
+  var bounds = new L.LatLngBounds(southWest, northEast);
+
+  // add the image overlay, 
+  // so that it covers the entire map
+  L.imageOverlay(url, bounds).addTo(map);
+
+  // tell leaflet that the map is exactly as big as the image
+  map4.setMaxBounds(bounds);
+</script>
 
 
 
