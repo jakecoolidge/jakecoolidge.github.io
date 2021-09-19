@@ -75,9 +75,163 @@
 
 <h2 class="item-title">Mount Rainier</h2>
 
+<p style="margin-bottom: 0;">Click to cycle through images.</p>
+<p><img src="img/mount-rainier-printed-sheet.jpg" id="imgClickToChange" onclick="changeImage()" style="cursor:pointer; width:700px; margin-bottom: 0;" /></p>
+<p>2017. Copper plate etching. 15" by 11".</p>
+
+<div class="text">
+
+  <p>Ever since I started drawing maps by hand a few years ago, I've wanted to incorporate my background in fine art printmaking into the process&mdash;to bridge my current work in cartography with printmaking, allowing the print medium to enter into the map-making conversation. A major impediment in years past has been time, but more importantly, having access to a printmaking facility. In conversations with my good friend and printmaker, Brian Lane, we devised a plan for me to work at his shop in Seattle, <a href="http://www.printzerostudios.com/">Print Zero Studios,</a> over a condensed four-day period in July, 2017. I set my sights on exhibiting the finished product in the Map Gallery at the <a href="http://nacis.org/">NACIS</a> Annual Meeting in Montréal, and used that to spur me in to action.</p>
+
+  <p>Fittingly for a project to be executed in Seattle, I chose an aerial view of Mount Rainier, the brooding stratovolcano that rises over 14,000 feet above the surrounding countryside just sixty miles southeast of the University of Washington campus, where I learned printmaking under the guidance of Shirley Scheier, Curt Labitzke, and Larry Sommers. The drawing technique I exhibit in my hand-drawn maps has retained characteristics informed by traditional printmaking techniques, particularly the linework and hatchuring common in zinc and copper plate etching, and this led me to choose this technique over others, like woodblock and silkscreen. Compared to my past hand-drawn maps, which can be as large as the table surface I have access to, delving into copper plate etching after a long hiatus from the process would require the development of a much smaller composition. I felt a portrait of a mountain would fit these constraints nicely. Earlier in 2017 fellow NPS cartographers gifted me with an impressive collection of <a href="http://www.berann.com/">Heinrich Berann</a> posters, and his masterful depiction of Denali served as a major inspiration.</p>
+
+  <p>Below I've included some documentation of the process. I went from concept to finished print in less than three months, an extraordinary turnaround when compared to the two and half years of off and on effort that went into the <a href="california.html">California</a> map. I consider this print more of an experiment, dipping my toe in the realm of making maps with traditional printing techniques. If I get the opportunity to return to this medium in the future, I'll want to refine my lettering (writing small letters backwards with a twisted scribe on a copper plate coated in hard ground is as difficult as it sounds), etching and stop-out techiques, ink preparation and consistency, and perhaps even add aquatint for tonal effects.</p>
+
+  <img src="img/mtr-notebook-1.jpg" alt="early concept sketch of Mt. Rainier map" />
+
+  <p>I started sketching ideas in my notebook for framing the mountain in a composition. I chose a vantage that encompasses some of Rainier’s interesting features, and contextualizes the mountains with some of its peers in the Cascade Range: Mt. Adams, Mt. Hood, and Mt. St. Helens, which suffered a massive eruption in 1980.</p>
+
+  <img src="img/mtr-notebook-2.jpg" alt="early concept sketch of Mt. Rainier map" />
+
+  <img src="img/mtr-illustrator-file.jpg" alt="Illustrator file set up to enable drafting the design" />
+
+  <p>I extracted contour lines from USGS 1:24k topographic quads and added this data to Google Earth. With contour data draped over imagery, I overlaid a grid in Illustrator. Using the grid (the method-of-squares technique), I experimented with a hatchure-based relief depiction demonstrated in Imhof’s <em>Cartographic Relief Presentation.</em> This preparatory work happened in Colorado during May and June, prior to heading out Seattle.</p>
+
+  <img src="img/mtr-early-concept-sketch.jpg" alt="early concept sketch based on digital data" />
+
+  <img src="img/mtr-in-the-studio.jpg" alt="working in Print Zero Studios, Seattle" />
+
+  <p>The image above depicts an early scene at Print Zero Studios, Seattle. I’ve applied a hard ground to the copper plate and am preparing to transfer a pencil sketch outline of the map to the plate.</p>
+
+  <img src="img/mtr-grounded-plate.jpg" alt="drawing the design on the grounded copper plate" />
+
+  <p>With graphite from the sketch transferred to the plate surface, I use a twisted scribe to scratch the drawing into the hard ground with fine lines. This exposes the plate to etching by acid. Later, the etched lines can hold ink below the surface of the plate.</p>
+
+  <img src="img/mtr-printing-mt-rainier-1.png" id="imgClickToChange_presswork" onclick="changeImage()" style="cursor:pointer;" />
+
+  <p>Click images above to view series; photographs by Nikki Barber. Having etched the plate, removed the hard ground, and applied ink, I run the first proof through the press. The first proof was pretty light, so I reapplied hard ground and did some more drawing on the plate. I also modified the ink consistency for better results in future proofs&mdash;my thanks to <a href="http://nikkibarber.com">Nikki Barber</a> for her key assistance in helping me get the ink to be more workable.</p>
+
+  <img src="img/mtr-transferring-the-drawing-to-plate.jpg" />
+
+  <p>Second time transferring the pencil sketch to the plate, using Saral transfer paper.</p>
+
+  <img src="img/mtr-etching-round-two.jpg" />
+
+  <p>Second round of etching, using stop-out to create a range of etch depths from shallow, faint lines in the background to deeper, richer lines in the foreground.</p>
+
+  <img src="img/mtr-fully-etched-copper-plate.jpg" />
+
+  <p>Fully etched copper plate ready for running an edition.</p>
+
+  <img src="img/mtr-third-working-proof.jpg" />
+
+  <p>Third working proof exhibits improving ink consistency.</p>
+
+  <img src="img/mtr-edition-on-drying-rack.jpg" />
+
+  <p>Small edition of eight prints completed and drying on the rack.</p>
+
+
+</div>
+
+<script type="text/javascript">
+var counter = 1;
+
+imgClickToChange.onclick = function(){
+    if(counter == 0){
+        document.getElementById("imgClickToChange").src = "img/mount-rainier-printed-sheet.jpg";
+        counter++;
+    }
+    else if(counter == 1){
+        document.getElementById("imgClickToChange").src = "img/mount-rainier-plate-area.jpg";
+        counter = 0;
+    }  
+};
+</script>
+
+<script type="text/javascript">
+var counter = 1;
+
+imgClickToChange_presswork.onclick = function(){
+    if(counter == 0){
+        document.getElementById("imgClickToChange_presswork").src = "img/mtr-printing-mt-rainier-1.png";
+        counter++;
+    }
+    else if(counter == 1){
+        document.getElementById("imgClickToChange_presswork").src = "img/mtr-printing-mt-rainier-2.png";
+        counter++;
+    }  
+    else if(counter == 2){
+      document.getElementById("imgClickToChange_presswork").src = "img/mtr-printing-mt-rainier-3.png";
+      counter++;
+
+    }
+    else if(counter == 3){
+      document.getElementById("imgClickToChange_presswork").src = "img/mtr-printing-mt-rainier-4.png";
+      counter++;
+    }
+    else if(counter == 4){
+      document.getElementById("imgClickToChange_presswork").src = "img/mtr-printing-mt-rainier-5.png";
+      counter = 0;
+    }
+};
+</script>
+
 <hr>
 
-<h2 class="item-title">The Western Shore of Lake Michigan</h2>
+<h2 class="item-title">The Western Shore of Lake Michigan and Environs</h2>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+
+<div id="image-map" style="width: 100%; height: 300px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
+<p>2015. Pencil and ink on paper. 60" by 15".</p>
+
+<div class="text">
+  <p>This is my third major hand-drawn map. While clearly related to my earlier hand-drawn maps of <a href="california.html">California</a> (2012) and the <a href="columbia-river-watershed.html">Columbia River Watershed</a> (2014), this map makes a few notable departures.</p>
+
+  <p>In beginning to compile this map, it quickly became clear to me that the landscape would require a different sort of symbolization. Where terrain relief depiction had played such a central role in the earlier maps, this relatively flat part of the world would seem incomplete without the integration of additional information. An airline passenger might note from her window seat the great grid of the Chicago conurbation, and just outside it, the seemingly endless agricultural grid spread across the fertile plain. I opted to tell a story of this pattern of land use and land cover within the bounds of pencil and black ink on paper (new theme, same instruments). I acquired <a href="http://nationalmap.gov/small_scale/mld/ldco100.html">the National Land Cover Dataset</a> from The National Atlas and once again consulted Erwin Raisz's <em>General Cartography</em> (1948) for ideas on how to proceed. The trees and croplands especially reflect this influence.</p>
+
+  <p>Highways make a return to this map after being excluded from the Columbia River Watershed map. Where they meet the edge of the map, I provide indicators of the major cities beyond the horizon and their distances from that point. A notable characteristic of the Chicago region, of course, is its centrality and interconnectedness with much of the nation.</p> 
+
+  <p>As with all my hand-drawn maps, this map's perspective/projection is framed to reflect how I experienced the place, as a resident of Chicago who made a few trips into Wisconsin. This experience led me to think of eastern Wisconsin and northeastern Illinois as a part of a cohesive region, with the formidible Lake Michigan as a unifying element, always looming to the east with its moods and its power. Perhaps not surprisingly, the importance of the lake in the composition led me to create a rich texture for open water for the first time. (I merely alluded to a wave-like texture for the Pacific Ocean along the shoreline in my Columbia River Watershed map, and it is completely absent from the California map, since I was at a loss for how to approach the Pacific at that time.)</p>
+
+  <p>Unfortunately I never got around the lake to Michigan during my brief stay in Chicago, so in this map, &ldquo;The Mitten&rdquo; remains a mystery beyond the horizon. A seemingly ever-present wall of clouds along the indeterminate horizon punctuates the lake's mood&mdash;another flourish I permitted myself to employ as long as I kept it subtle.</p>
+
+  <p>This map was unveiled in the Tangible Maps Exhibit / Map Gallery at the 2015 NACIS meeting, at The Depot in Minneapolis, Minnesota. For more on the exhibit, see <a href="tangible-maps-exhibit.html">this.</a> Below is the cover of <em>Cartographic Perspectives</em> no. 82, which features an excerpt of the map.</p>
+
+
+</div>
+
+<p><img src="img/cp-no82-cover.png" /></p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
+
+<script type="text/javascript">
+  var map = L.map('image-map', {
+    minZoom: 1,
+    maxZoom: 4,
+    center: [0, 0],
+    zoom: 1,
+    crs: L.CRS.Simple
+  });
+
+  // dimensions of the image
+  var w = 2324,
+      h = 600,
+      url = '../img/lake-michigan-gray.jpg';
+
+  // calculate the edges of the image, in coordinate space
+  var southWest = map.unproject([0, h], map.getMaxZoom()-1);
+  var northEast = map.unproject([w, 0], map.getMaxZoom()-1);
+  var bounds = new L.LatLngBounds(southWest, northEast);
+
+  // add the image overlay, 
+  // so that it covers the entire map
+  L.imageOverlay(url, bounds).addTo(map);
+
+  // tell leaflet that the map is exactly as big as the image
+  map.setMaxBounds(bounds);
+</script>
 
 <hr>
 
