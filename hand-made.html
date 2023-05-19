@@ -265,9 +265,9 @@ imgClickToChange_presswork.onclick = function(){
   });
 
   // dimensions of the image
-  var w = 2748,
-      h = 1458,
-      url = '../img/columbia-river-watershed.png';
+  var w = 4815,
+      h = 2566,
+      url = '../img/columbia-river-watershed-sm.png';
 
   // calculate the edges of the image, in coordinate space
   var southWest = map2.unproject([0, h], map2.getMaxZoom()-1);
@@ -307,10 +307,10 @@ imgClickToChange_presswork.onclick = function(){
 
 <script type="text/javascript">
   var map3 = L.map('image-map3', {
-    minZoom: 1,
-    maxZoom: 4,
+    minZoom: 0,
+    maxZoom: 3,
     center: [0, 0],
-    zoom: 1,
+    zoom: 0,
     crs: L.CRS.Simple
   });
 
