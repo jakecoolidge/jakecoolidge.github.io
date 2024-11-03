@@ -6,7 +6,18 @@ figure > img {
     width: 100%;
     background-size: 1000px; }
   
-  .bg-thumb-park-tiles {
-    background-image: url(../img/nps-park-tiles-thumb-wide.png);
-    /*background-repeat: no-repeat;
-    background-size: 1000px;*/ }
+.bg-thumb-park-tiles {
+  background-image: url(../img/nps-park-tiles-thumb-wide.png);
+  }
+
+.bg-thumb-columbia-river {
+  background-image: url(../img/columbia-river-thumb-wide.png);
+}
+
+.bg-thumb-century-of-growth {
+  background-image: url(../img/a-century-of-growth-thumb-wide.png);
+}
+
+.bg-thumb-i-bike-oakland {
+  background-image: url(../img/oakland-bikemap-thumb-wide.png);
+}
