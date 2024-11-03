@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Jake Coolidge Cartography redesigned with Simple CSS</title>
+    <link rel="icon" type="image/png" href="img/icon2.png" type="image/x-icon" />
+    <!-- Minified version -->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.2.0/dist/maplibre-gl.css">
+    <link rel="stylesheet" href="css/extra.css">
+    <script src="https://unpkg.com/maplibre-gl@4.2.0/dist/maplibre-gl.js"></script>
+</head>
+
+<body>
+    <a href="index.html" style="text-decoration: none;"><h1>Jake Coolidge Cartography</h1></a>
+
+    <h2>Experiments and Explorations</h2>
+
+    <h3 id="regional-rapid-transit-bay-area">Regional Rapid Transit for the Bay Area</h3>
+
+    <div id="image-map" style="width: 100%; height: 600px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
+
+    <figcaption>2018. Adobe Illustrator artwork compiled and modified <br>
+        from geographic data developed in QGIS and Google Earth.</figcaption>
+
+    <p><a href="http://jakecoolidge.wordpress.com/2011/10/24/no-little-plans-exploring-rapid-transit-development-through-the-lens-of-plan-design/">My Master’s thesis research</a> explored the unlikely second wave of rapid transit planning that occurred at mid-century in the United States.  One of those plans, from 1956, proposed a massive rapid transit system for the nine counties of the Bay Area. This transit diagram imagines what the Bay Area Rapid Transit system might have looked like had that vision ever come to fruition.  Of course, the chances of this system being built were less than slim. But the response to the various versions of this map on blogs including <a href="http://www.tentimesone.com/imaginary-bart-map-makes-local-san-franciscans-foam-at-the-mouth/">Ten Times One,</a> <a href="http://laughingsquid.com/imaginary-bart-map-by-jake-coolidge/">Laughing Squid,</a> <a href="http://www.munidiaries.com/2011/12/07/visualizing-bart-to-marin-and-napa-and-sonoma/">Muni Diaries,</a> and <a href="http://www.missionmission.org/2011/12/08/bart-everywhere/">Mission Mission</a> make it clear that the dream, for some of us, is a tantalizing one. My thanks to Adam Mann for including my map in <a href="http://www.wired.com/wiredscience/2014/01/fantasy-transit-maps/">a gallery of fantasy transit maps on Wired Science's Map Lab.</a> It appears fantasy transit maps have truly arrived as a curious and (I like to think) thought-provoking sub-genre.</p>
+
+    <p>Indeed, the dream of a Bay Area-wide integrated rapid transit system is somehow so compelling that I've returned to it repeatedly over the years. The version above is actually the fourth (!) version. I was spending a lot of time looking at Massimo Vignelli's wonderful 1970 map of the New York Subway system as well as the exquisite work of Cameron Booth while developing this latest version. In addition, I wanted to boost the fantasy quotient by integrating the beleaguered and (seemingly) destined-to-fail California High Speed Rail alignment. This most-recent version appears in <a href="https://www.pmpress.org/index.php?l=product_detail&p=1140"><em>Counterpoints: A San Francisco Bay Area Atlas of Displacement &amp; Resistance,</em></a> produced by the <a href="https://antievictionmap.com/">Anti-Eviction Mapping Project</a> and published by PM Press.</p>
+  
+    <p>I've included the previous versions below. By scrolling down the page, you’ll travel back in time, and witness both how my concept for the fantastic system changed over time, but also how my cartographic design skills have evolved over time.</p>
+  
+    <h4>Earlier Versions</h4>
+
+    <p><strong>2013</strong></p>
+
+    <a href="img/RegionalRapidTransit_Dec2013revision.png"><img src="img/RegionalRapidTransit_Dec2013revision.png" /></a>
+
+    <p>Edits and revisions in the 2013 version included the adoption of stop symbols like those found on the London Underground diagram, which allowed me to place the stop labels more clearly. Also, this version integrated the Transbay Terminal as an important transfer station. Some stops have been renamed and typographical errors corrected. Perhaps most obviously, I removed the BART logo and any mention of BART or its website, replacing it with a more explicit reference to the planning document that inspired the map, <em>Regional Rapid Transit,</em> published in 1956.</p>
+
+    <p><strong>2011</strong></p>
+
+    <img src="img/BARTDiagramatic_lg.png" />
+
+    <p>This is the earliest diagrammatic version, and the one that's probably be seen by the most people over the years.</p>
+
+    <p><strong>2010</strong></p>
+
+    <img src="img/BARTreimagined_web.png" />
+
+    <p>My earliest attempt adhered to a conventional map framework. The modern New York subway map served as an inspiration.</p>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
+
+    <script type="text/javascript">
+      var map = L.map('image-map', {
+        minZoom: 0,
+        maxZoom: 4,
+        center: [0, 0],
+        zoom: 0,
+        crs: L.CRS.Simple
+      });
+
+      // dimensions of the image
+      var w = 3300,
+          h = 5100,
+          url = '../img/bart_v4.jpg';
+
+      // calculate the edges of the image, in coordinate space
+      var southWest = map.unproject([0, h], map.getMaxZoom()-1);
+      var northEast = map.unproject([w, 0], map.getMaxZoom()-1);
+      var bounds = new L.LatLngBounds(southWest, northEast);
+
+      // add the image overlay, 
+      // so that it covers the entire map
+      L.imageOverlay(url, bounds).addTo(map);
+
+      // tell leaflet that the map is exactly as big as the image
+      map.setMaxBounds(bounds);
+    </script>
+
+    <hr>
+
+    <h3 id="century-of-growth" class="item-title">A Century of Growth: California population, 1900&ndash;2010</h3>
+
+    <div id="image-map2" style="width: 100%; height: 300px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
+
+    <figcaption>2018. Adobe Illustrator artwork. Adapted from a poster prepared for the 2018 NACIS Map Gallery.</figcaption>
+
+    <p>View the interactive version <a href="https://jakecoolidge.github.io/california-cartogram/" target="_blank">here,</a> which uses Leaflet.js and Illustrator artwork adapted to GeoJSON using MAPublisher.</p>
+
+    <p>A cartogram is a thematic map that is "drawn so that the areas of internal enumeration units are proportional to the data they represent"<sup><a href="#ref-1">1</a></sup>. As a result, cartograms are uniquely suited to enable immediate visual comparisons of quantities, and coupled with static multiples in a temporal series, can enable comparisons across time. This cartogram series uses the county as the enumeration unit, and resizes each county relative to the other to show population patterns across the state of California. At a glance it should be clear that population is not evenly distributed across the state. Perhaps more striking is the temporal dimension to California's extraordinary population growth since 1900.</p>
+
+    <p>The sizing of the county polygons remains consistent throughout the visualization, for example allowing the magnitude of San Francisco's population in 1900 to be compared to the Sacramento's 1980 population.</p>
+
+    <p>This is a semi-contiguous cartogram. Due to the fact that some counties with large land areas have very small populations (for example, Inyo County), and some counties with small land areas have large populations (San Francisco), with a wide range of population densities in between, some shearing is inevitable as the counties are resized according to population.</p>
+
+    <p>I start with a table of all county populations by census year. I add columns to the table where I divide each population by 10,000 and round to the nearest integer. This gives me the number of 0.1 x 0.1 inch squares that I will use to build each county. For example, in 1980 Calaveras County had 20,710 inhabitants, so that county's shape will be built out of 2 squares, and in that same year Fresno County had 514,621, for a total of 51 squares. In limited cases, I draw squares and rectangles that are smaller than 0.1 x 0.1 in. In 1900, Inyo County had 4,377 inhabitants, and my table produces a result of 0 squares. Rather than round up to 1 square, I create a square that is 0.05 x 0.1 in, or roughly 5,000 persons according to my scale.</p>
+
+    <p>I set up the document's grid for 0.1 inch increments, enable it, and then select Snap to Grid. I build larger counties out of smaller groups of "blocks", almost Tetris-style, so I can shape and fit the counties to match, as much as possible, their original shapes and the topological relationships amongst the various counties (for example, Santa Barbara County is vaguely rectangular, shares its eastern border with Ventura County, its northern border with San Luis Obispo County, and its northeastern corner meets the southwestern corner of Kern County). I refer to a normal map of California counties continuously during this phase. It's impossible not to incur some shearing and discontinuity in the process. Mono County, with its 1980 population of 8,577, would be stretched so thin as to be rendered practically invisible. I discuss a contemporary alternative of cartogram production and why I've opted for this "counting squares" method as an addendum below.</p>
+
+    <p>In the last decade, the Cartogram Geoprocessing tool, created by Tom Gross and available for ArcGIS Desktop, has automated the cartogram creation process. It makes use of a method first published by physicists/computational scientists Michael T. Gastner and M.E.J. Newman in 2004, the "diffusion-based method for producing density-equalizing maps"<sup><a href="ref-2">2</a></sup>, which adapts algorithms developed in the materials sciences to warp the size of shapes while maintaining topological relationships. Kenneth Field has noted that their breakthrough represents "the holy grail" in cartogram production, solving many of the problems of topology and continuity that hindered earlier efforts.<sup><a href="#ref-3">3</a></sup> The result are maps with a distinct aesthetic akin to inflated and deflated balloons, or other decidedly organic analogies. A map I made using Gross's tool depicting California's population in 2000 makes the state look like a very well-fed slug. Interestingly, the "slug's antennae" of Del Norte and Modoc Counties, in the north of the state, also manifest themselves in a less organic way in my cartogram.</p>
+
+    <img src="img/CAPop2000_Cartogram_GIS.png" />
+
+    <p>Of course, I am not making use of the affordances of Gross's tool in this cartogram series. Aside from the strange (if mathematically precise) aesthetic, I'm also interested in the idea of recovering data from the visualization; in other words, a user can visually compare the shapes to the simple legend and “recover” approximate values from the visualization. In this printed version, a user could even measure the dimensions of the polygons and arrive at population values rounded to multiples of 10,000. (Of course, the included table should dissuade anyone from doing so.) As graduated symbols, the relative sizes of squares are considerably easy for users to compare, even easier than graduated circles. My cartograms are built with the square as the atomic unit, bolstering the legibility of the quantities while simultaneously simplifying and abstracting the resulting shapes away from their original mapped appearance. It's a trade-off, but I happen to be a fan of the older, human-produced cartogram production methods, despite their topological limitations.</p>
+
+    <p>Population data was acquired from the US Census Bureau. Check out <a href="https://github.com/jakecoolidge/california-cartogram">my readme on GitHub</a> to learn more about how 
+    <a href="https://jakecoolidge.github.io/california-cartogram">the interactive version</a> was created, and information about one of my earliest grad-school projects—the first version of this visualization. This work marks the ten-year anniversary of that work, reimagining and redesigning it along the way.</p>
+
+    <p><img src="img/ca_cartogram_scaled.png" /></p>
+
+    <ol>
+        <li id="ref-1">Dent, Borden D. (1996). Cartography: Thematic Map Design. p. 203. 4th Ed. 	    Dubuque, Iowa: Wm. C. Brown Publishers.</li>
+        <li id="ref-2"><a href="http://www.pnas.org/content/101/20/7499">Diffusion-based method for producing density-equalizing maps</a> by Michael T. Gastner and M.E.J. Newman. Proceedings of the National Academy of Scientists, May 18, 2004.</li>
+        <li id="ref-3"><a href="https://mapdesign.icaci.org/2014/12/mapcarte-349365-density-equalizing-
+    cartogram-by-michael-gastner-and-mark-newman-2004">ICACI blog post by Kenneth Field, Dec. 15, 2014.</a></li>
+    </ol>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
+
+    <script type="text/javascript">
+    	var map2 = L.map('image-map2', {
+    	  minZoom: 1,
+    	  maxZoom: 4,
+    	  center: [0, 0],
+    	  zoom: 1,
+    	  crs: L.CRS.Simple
+    	});
+
+    	// dimensions of the image
+    	var w = 3456,
+    	    h = 1009,
+    	    url = '../img/a-century-of-growth-web-mr.jpg';
+
+    	// calculate the edges of the image, in coordinate space
+    	var southWest = map2.unproject([0, h], map2.getMaxZoom()-1);
+    	var northEast = map2.unproject([w, 0], map2.getMaxZoom()-1);
+    	var bounds = new L.LatLngBounds(southWest, northEast);
+
+    	// add the image overlay, 
+    	// so that it covers the entire map
+    	L.imageOverlay(url, bounds).addTo(map2);
+
+    	// tell leaflet that the map is exactly as big as the image
+    	map2.setMaxBounds(bounds);
+    </script>
+
+    <hr>
+
+    <h3 id="nacis-cartoquilts" class="item-title">NACIS Cartoquilts</h3>
+
+    <img src="img/nacis_cartoquilt_2016.png" width="901px" />
+
+    <figcaption>2016. Adobe Illustrator/Avenza MAPublisher artwork. Compiled using QGIS.</figcaption>
+
+    <p>In the months leading up to the 2016 meeting of the North American Cartographic Information Society (NACIS) in Colorado Springs, I was honored with my first invitation to participate in the annual Cartoquilt, a more recent NACIS tradition. It involves taking a map of the place where the meeting is being held, dividing that map into a "quilt" of squares or rectangles, and assigning each section to a different cartographer. Many NACIS luminaries have participated in years past, so I was pretty excited to contribute.</p>
+
+    <p>The section chosen for me happened to include the northern edge of NORAD, the North American Aerospace Defense Command, established in the mid-20th century. This led me to think about post-war suburbanization in the United States generally, and how Cold War efforts may have shaped local development in Colorado Springs in particular. I acquired historic USGS topographic maps for the area and used these to portray the expansion of Colorado Springs to the south and west, towards the foothills of the Rockies. I chose Optima, a safe, middle-road, and probably overused typeface designed in 1950 by Hermann Zapf, for its potential visual association with post-war municipal plans and reports.</p>
+
+    <p>In 2017, I received an invitation for another go-around with the NACIS Cartoquilt. This time we held our meeting in Montr&eacute;al, so this was a fun way to learn more about the city's geography.</p>
+
+    <img src="img/nacis_cartoquilt_2017.png" />
+
+    <figcaption>2017. Adobe Illustrator/Avenza MAPublisher artwork. Compiled using QGIS.</figcaption>
+
+    <hr>
+
+    <h3 id="he-who-laughs-last" class="item-title"><em>He Who Laughs Last</em> by Dave Sokolowski</h3>
+
+    <img src="img/hwll_main.png" />
+
+    <figcaption>2014. Maps designed in Adobe Illustrator/Avenza MAPublisher. Book designed using Adobe InDesign.</figcaption>
+
+    <p><em>He Who Laughs Last</em> is a Cthulhu Dark RPG Scenario written and <a href="https://www.kickstarter.com/projects/davesokolowski/he-who-laughs-last-a-cthulhu-dark-rpg-scenario">quite successfully Kickstarted</a> by <a href="http://weird8.com/">Dave Sokolowski.</a> (Cthulhu Dark scenarios delve into modern horror themes, inspired by the work of H.P. Lovecraft.) This project started as a map-design project, but quickly became a book design project, which is awesome, as I enjoy designing books when I get the opportunity. (See also my work on the <a href="CESTAAnthology2013.html">2013 CESTA Anthology.</a>)</p>
+
+    <p>This is cartography developed specifically to contribute to themes of suspense, horrors revealed, and a potential apocalypse in the making. So, pretty different from what I typically do, but terrifically fun.</p>
+
+    <img src="img/HWLL_SouthlandMap.png" />
+
+    <figcaption>Above is map of the Southland from <em>He Who Laughs Last,</em> comprised of OpenStreetMap data. Below are additional excerpts from the book.</figcaption>
+
+    <img src="img/HWLL_pgs16-17.png" />
+
+    <img src="img/HWLL_pgs18-19.png" />
+
+    <footer>
+        <h1>See also</h1>
+        <figure>
+            <a href="index.html#nps-csu">
+              <div class="bg-thumb bg-thumb-park-tiles"></div>
+              <figcaption>NPS/CSU cartography</figcaption>
+            </a>
+          </figure>
+      
+          <figure>
+            <a href="index.html#hand-drawn">
+              <div class="bg-thumb bg-thumb-columbia-river"></div>
+              <figcaption>Maps drawn and printed by hand</figcaption>
+            </a>
+          </figure>
+      
+          <figure>
+            <a href="index.html#experiments">
+              <div class="bg-thumb bg-thumb-century-of-growth"></div>
+              <figcaption>Experiments and explorations</figcaption>
+            </a>
+          </figure>
+      
+          <figure>
+            <a href="index.html#freelancing">
+              <div class="bg-thumb bg-thumb-i-bike-oakland"></div>
+              <figcaption>Freelance cartography</figcaption>
+            </a>
+          </figure>
+
+          <p>The online porfolio for Jake Coolidge, featuring cartography and design. Hand-drawn maps, maps for academic presses, guide maps, and other explorations. </p>
+
+          <p>Contact via <a href="">LinkedIn.</a> GitHub profile <a href="">here.</a></p>
+
+          <p class="post-meta">All content &#169; 2009 &ndash; <script>document.write(new Date().getFullYear());</script> Jake Coolidge. All rights reserved. This website is built and maintained by Jake Coolidge and uses <a href="https://simplecss.org/">the Simple.css Framework</a>. Last updated November 2024.</p>
+    </footer>
+
+</body>
+
+</html>
