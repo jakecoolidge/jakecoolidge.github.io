@@ -420,6 +420,10 @@ pre {
 .bg-thumb-rrt {
   background-image: url(../img/rrt-thumb-wide.jpg); }
 
+.bg-thumb-grand-tour {
+  background-image: url(../img/grand-tour-thumb-wide.png);
+}
+
 .bg-thumb-century-of-growth {
   background-image: url(../img/a-century-of-growth-thumb-wide.png); }
 
@@ -468,6 +472,11 @@ pre {
   /*background-repeat: no-repeat;
   style="object-fit: cover;"
   background-size: 1000px;*/ }
+
+.flexy {
+  display: flex;
+  flex-wrap: wrap;
+}
 
 /**
  * Syntax highlighting styles
