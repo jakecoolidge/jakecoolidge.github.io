@@ -30,8 +30,8 @@ ul, ol, dl, figure, img,
 .highlight {
   margin-bottom: 15px; }
 
-.text {
-  max-width: 500px; }
+/*.text {
+  max-width: 500px; }*/
 
 /*.front-page-item-title {
     margin-bottom: -1em;
@@ -63,6 +63,12 @@ figure > img {
 figcaption {
   font-size: 0.875em; }
 
+figure span {
+  background-color: #fff;
+  line-height: 80%;
+  padding: 5px;
+}
+
 /**
  * Lists
  */
@@ -83,10 +89,10 @@ h1, h2, h3, h4, h5, h6 {
  * Links
  */
 a {
-  color: #2a7ae2;
-  text-decoration: none; }
+  color: #000;/*#2a7ae2;*/
+  text-decoration: underline;/*none;*/ }
   a:visited {
-    color: #1756a9; }
+    color: #404040;/*#8A3900;#1756a9;*/ }
   a:hover {
     color: #111;
     text-decoration: underline;
@@ -287,7 +293,7 @@ pre {
  * Page content
  */
 .page-content {
-  padding: 30px 0;
+  padding: 15px 0;
   /*added 2018.12.05*/
   max-width: 1000px;
   margin: 0 auto; }
@@ -359,8 +365,6 @@ pre {
         font-size: 18px; } }*/
 .post-content hr {margin-bottom: 30px;}
 
-.text {
-  max-width: 600px; }
 
 /*index page thumbnails added 8 Dec 2018*/
 .bg-thumb {
@@ -456,6 +460,14 @@ pre {
 
 .bg-thumb-redemption-songs {
   background-image: url(../img/redemption-songs-thumb-wide.png); }
+
+.bg-thumb-chernobyl {
+  background-image: url(../img/chernobyl-thumb.png);
+}
+
+.bg-thumb-dc-mjackson {
+  background-image: url(../img/dc-mjackson-thumb.png);
+}
 
 /* add bg images? */
 
