@@ -8,8 +8,11 @@
     <meta property="og:created" content="2025-06-25" />
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/main.css">
     <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@6.13.0/dist/maplibre-gl.css' />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/pmtiles@3.2.0/dist/pmtiles.js"></script>
     <style>
         body { margin: 0; padding: 0; }
@@ -17,37 +20,71 @@
     </style>
 </head>
 <body>
-<div id="map"></div>
-<script type="module">
-    import * as maplibregl from 'https://unpkg.com/maplibre-gl@6.13.0/dist/maplibre-gl.mjs';
-
-    // add the PMTiles plugin to the maplibregl global.
-    const protocol = new pmtiles.Protocol();
-    maplibregl.addProtocol('pmtiles', protocol.tile);
-
-    const PMTILES_URL = 'https://pub-36ee1968fc6b4e09a55da5013a410339.r2.dev/my_area.pmtiles'; //'https://5e4f122b67161e132f32a580b0d02ea5.r2.cloudflarestorage.com/pmtiles';
-
-    const p = new pmtiles.PMTiles(PMTILES_URL);
-
-    // this is so we share one instance across the JS code and the map renderer
-    protocol.add(p);
-
-    // we first fetch the header so we can get the center lon, lat of the map.
-    p.getHeader().then(h => {
-        const map = new maplibregl.Map({
-            container: 'map',
-            zoom: h.maxZoom - 2,
-            center: [h.centerLon, h.centerLat],
-            style: {
-                version: 8,
-                sources: {
-                    'my_area': {
-                        type: 'vector',
-                        url: `pmtiles://${PMTILES_URL}`,
-                        attribution: '© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
-                    }
-                },
-                layers: [
+    <div id="map"></div>
+    <script type="module">
+        import * as maplibregl from 'https://unpkg.com/maplibre-gl@6.13.0/dist/maplibre-gl.mjs';
+        
+        // add the PMTiles plugin to the maplibregl global.
+        const protocol = new pmtiles.Protocol();
+        maplibregl.addProtocol('pmtiles', protocol.tile);
+        
+        const PMTILES_URL = 'https://pub-36ee1968fc6b4e09a55da5013a410339.r2.dev/my_area.pmtiles'; //'https://5e4f122b67161e132f32a580b0d02ea5.r2.cloudflarestorage.com/pmtiles';
+        
+        const p = new pmtiles.PMTiles(PMTILES_URL);
+        
+        // define reusable style properties
+        const roadColor = {
+            'stops': [
+            [5, '#bababa'],
+            [8, '#969696'],
+            [12, '#bababa']
+            ]
+        } 
+        
+        const highwayWidth = {
+            'stops': [
+            [3, 1],
+            [7, 1.5],
+            [10, 3],
+            [13, 4],
+            [14, 6],
+            [16, 10],
+            [17, 16],
+            [20, 50]
+            ]
+        }
+        
+        const majorRoadWidth = {
+            "stops": [
+            [7, 0.75],
+            [10, 1.5],
+            [13, 2],
+            [14, 4],
+            [16, 7],
+            [17, 12],
+            [20, 40]
+            ]
+        }
+        
+        // this is so we share one instance across the JS code and the map renderer
+        protocol.add(p);
+        
+        // we first fetch the header so we can get the center lon, lat of the map.
+        p.getHeader().then(h => {
+            const map = new maplibregl.Map({
+                container: 'map',
+                zoom: h.maxZoom - 2,
+                center: [h.centerLon, h.centerLat],
+                style: {
+                    version: 8,
+                    sources: {
+                        'my_area': {
+                            type: 'vector',
+                            url: `pmtiles://${PMTILES_URL}`,
+                            attribution: '© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
+                        }
+                    },
+                    layers: [
                     {
                         'id': 'background',
                         'type': 'background',
@@ -56,20 +93,20 @@
                         }
                     },
                     {
-                        'id': 'ocean',
+                        'id': 'water area',
                         'source': 'my_area',
                         'source-layer': 'water',
                         'filter': [
-                            'all',
-                            [
-                                '==',
-                                '$type',
-                                'Polygon'
-                            ]
+                        'all',
+                        [
+                        '==',
+                        '$type',
+                        'Polygon'
+                        ]
                         ],
                         'type': 'fill',
                         'paint': {
-                            'fill-color': 'hsl(200,38%,79%)'
+                            'fill-color': '#b5d0de'
                         }
                     },
                     {
@@ -82,14 +119,42 @@
                         }
                     },
                     {
-                        'id': 'roads',
+                        'id': 'major_roads',
                         'source': 'my_area',
                         'source-layer': 'roads',
                         'type': 'line',
-                        //'filter': [],
+                        'filter': [
+                        '==', 'kind', 'major_road'
+                        ],
                         'paint': {
-                            'line-color': 'black',
-                            'line-width': 3
+                            'line-color': roadColor,
+                            'line-width': majorRoadWidth
+                        }
+                    },
+                    {
+                        'id': 'highways',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'type': 'line',
+                        'filter': [
+                        //"any",
+                        "==", "kind", "highway"//,
+                        //["==", "kind", "major_road"]
+                        ],
+                        'paint': {
+                            'line-color': roadColor,
+                            'line-width': highwayWidth
+                        }
+                    },
+                    {
+                        "id": "road labels",
+                        "type": "symbol",
+                        "source": "my_area",
+                        "source-layer": "roads",
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "line-center",
+                            "text-field": "{name}"
                         }
                     },
                     {
@@ -101,10 +166,10 @@
                             'fill-color': 'white'
                         }
                     }
-                ]
-            }
+                    ]
+                }
+            });
         });
-    });
-</script>
+    </script>
 </body>
 </html>
