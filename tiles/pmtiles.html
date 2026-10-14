@@ -8,7 +8,7 @@
     <meta property="og:created" content="2025-06-25" />
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/main.css">
+    <!--link rel="stylesheet" href="css/main.css"-->
     <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@6.13.0/dist/maplibre-gl.css' />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,11 +28,24 @@
         const protocol = new pmtiles.Protocol();
         maplibregl.addProtocol('pmtiles', protocol.tile);
         
-        const PMTILES_URL = 'https://pub-36ee1968fc6b4e09a55da5013a410339.r2.dev/my_area.pmtiles'; //'https://5e4f122b67161e132f32a580b0d02ea5.r2.cloudflarestorage.com/pmtiles';
+        const BASE_URL = 'https://pub-36ee1968fc6b4e09a55da5013a410339.r2.dev/';
+
+        const MY_AREA_URL = `${BASE_URL}my_area.pmtiles`;
+        const NPS_BOUNDARY_URL = `${BASE_URL}nps_boundary.pmtiles`;
+        const PMTILES_URL = 'https://pub-36ee1968fc6b4e09a55da5013a410339.r2.dev/my_area.pmtiles'; //original
+
+        const myArea = new pmtiles.PMTiles(MY_AREA_URL);
+        const npsBoundary = new pmtiles.PMTiles(NPS_BOUNDARY_URL);
+        const p = new pmtiles.PMTiles(PMTILES_URL); //original
         
-        const p = new pmtiles.PMTiles(PMTILES_URL);
-        
+        // bounds limiters
+        const bounds = [
+            [-122.7713, 37.4207],// southwest
+            [-122.221, 38.0449]// northeast
+        ]
         // define reusable style properties
+        const backgroundColor = '#f7eee8'
+
         const roadColor = {
             'stops': [
             [5, '#bababa'],
@@ -58,30 +71,72 @@
             "stops": [
             [7, 0.75],
             [10, 1.5],
-            [13, 2],
+            [13, 3],
             [14, 4],
             [16, 7],
             [17, 12],
             [20, 40]
             ]
         }
+
+        const minorRoadWidth = {
+            "stops": [
+                [13, 2],
+                [16, 3],
+                [17, 6],
+                [20, 20]
+            ]
+        }
+
+        const pathWidth = {
+            "stops": [
+                [13, 1],
+                [20, 5]
+            ]
+        }
+
+        const highwayCaseWidth = {
+            "stops": highwayWidth.stops.map(([zoom, width]) => [zoom, width + 1])
+        }
+
+        const majorRoadCaseWidth = {
+            "stops": majorRoadWidth.stops.map(([zoom,width]) => [zoom, width + 1])
+        }
+
+        const minorRoadCaseWidth = {
+            "stops": minorRoadWidth.stops.map(([zoom, width]) => [zoom, width +1])
+        }
         
         // this is so we share one instance across the JS code and the map renderer
-        protocol.add(p);
+        protocol.add(myArea);
+        protocol.add(npsBoundary);
+        protocol.add(p); //original
         
         // we first fetch the header so we can get the center lon, lat of the map.
         p.getHeader().then(h => {
             const map = new maplibregl.Map({
                 container: 'map',
                 zoom: h.maxZoom - 2,
-                center: [h.centerLon, h.centerLat],
+                center: [-122.4667,37.7974],//[h.centerLon, h.centerLat],
+                maxBounds: bounds,
                 style: {
                     version: 8,
                     sources: {
+                        'hillshade': {
+                            type: 'raster',
+                            tiles: ['https://tiles.openstreetmap.us/raster/hillshade/{z}/{x}/{y}.jpg'],
+                            tileSize: 256,
+                            attribution: 'Tiles by <a href="https://tiles.openstreetmap.us/">OSM US</a>'
+                        },
                         'my_area': {
                             type: 'vector',
-                            url: `pmtiles://${PMTILES_URL}`,
+                            url: `pmtiles://${MY_AREA_URL}`, //`pmtiles://${PMTILES_URL}`,
                             attribution: '© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
+                        },
+                        'nps_boundary': {
+                            type: 'vector',
+                            url: `pmtiles://${NPS_BOUNDARY_URL}`,
+                            attribution: 'National Park Service'
                         }
                     },
                     layers: [
@@ -89,7 +144,115 @@
                         'id': 'background',
                         'type': 'background',
                         'paint': {
-                            'background-color': '#f7eee8'
+                            'background-color': backgroundColor
+                        }
+                    },
+                    {
+                        'id': 'park fill',
+                        'source': 'my_area',
+                        'source-layer': 'landuse',
+                        'filter': [
+                            'any',
+                            ['==', 'kind', 'park'],
+                            ['==', 'kind', 'dog_park'],
+                            ['==', 'kind', 'garden'],
+                            ['==', 'kind', 'golf_course'],
+                            ['==', 'kind', 'grass'],
+                            ['==', 'kind', 'meadow'],
+                            ['==', 'kind', 'national_park'],
+                            ['==', 'kind', 'nature_reserve'],
+                            ['==', 'kind', 'orchard'],
+                            ['==', 'kind', 'pitch'],
+                            ['==', 'kind', 'playground'],
+                            ['==', 'kind', 'protected_area'],
+                            ['==', 'kind', 'recreation_ground'],
+                            ['==', 'kind', 'scrub']
+                        ],
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': '#e0dfcc'
+                        }
+                    },
+                    {
+                        'id': 'nps boundary fill',
+                        'source': 'nps_boundary',
+                        'source-layer': 'nps_boundary',
+                        'filter': ["==", "park_class", "o"],
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': '#cdccb7' // pre-hillshade '#e0dfcc'
+                        }
+                    },
+                    {
+                        'id': 'woodland fill',
+                        'source': 'my_area',
+                        'source-layer': 'landuse',
+                        'filter': [
+                            'any',
+                            ['==', 'kind', 'wood'],
+                            ['==', 'kind', 'forest']
+                        ],
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': '#bab9a2'
+                        }
+                    },
+                    {
+                        'id': 'hillshade',
+                        'type': 'raster',
+                        'source': 'hillshade',
+                        'paint': {
+                            'raster-opacity': 0.2
+                        }
+                    },
+                    /*{
+                        'id': 'vector template',
+                        'source': 'my_area',
+                        'source-layer': 'a-layer',
+                        'filter': [],
+                        'type': 'type',
+                        'paint': {}
+                    },*/
+                    {
+                        'id': 'runways taxiways',
+                        'source': 'my_area',
+                        'source-layer': 'landuse',
+                        'filter': [
+                            'any',
+                            ['==', 'kind', 'runway'],
+                            ['==', 'kind', 'taxiway']
+                        ],
+                        //'minzoom': 14,
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': '#bbb'
+                        }
+                    },
+                    {
+                        'id': 'pedestrian areas',
+                        'source': 'my_area',
+                        'source-layer': 'landuse',
+                        'filter': [
+                            '==', 'kind', 'pedestrian'
+                        ],
+                        'minzoom': 14,
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': '#ddd'
+                        }
+                    },
+                    {
+                        'id': 'beach',
+                        'source': 'my_area',
+                        'source-layer': 'landuse',
+                        'filter': [
+                            "any",
+                            ["==", 'kind', 'beach'],
+                            ["==", 'kind', 'sand']
+                        ],
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': '#faf3e3'//'#fffcdc'
                         }
                     },
                     {
@@ -110,16 +273,118 @@
                         }
                     },
                     {
+                        'id': 'nps boundary line',
+                        'source': 'nps_boundary',
+                        'source-layer': 'nps_boundary',
+                        'filter': ["==", "park_class", "o"],
+                        'type': 'line',
+                        'paint': {
+                            'line-color': '#4e7500',
+                            'line-width': {
+                                'stops': [
+                                    [13, 1],
+                                    [14, 2]
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        'id': 'piers',
+                        'source': 'my_area',
+                        'source-layer': 'landuse',
+                        'filter': ["==", 'kind', 'pier'],
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': backgroundColor
+                        }
+                    },
+                    {
                         'id': 'buildings',
                         'source': 'my_area',
                         'source-layer': 'buildings',
+                        'filter': ['!=', 'layer', -1],
+                        'minzoom': 14,
                         'type': 'fill',
                         'paint': {
                             'fill-color': '#d4c1ab'
                         }
                     },
                     {
-                        'id': 'major_roads',
+                        'id': 'minor roads cases',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'minzoom': 13,
+                        'type': 'line',
+                        'filter': [
+                        '==', 'kind', 'minor_road'
+                        ],
+                        'paint': {
+                            'line-color': backgroundColor,
+                            'line-width': minorRoadCaseWidth
+                        }
+                    },
+                    {
+                        'id': 'major roads cases',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'type': 'line',
+                        'filter': [
+                        '==', 'kind', 'major_road'
+                        ],
+                        'paint': {
+                            'line-color': backgroundColor,
+                            'line-width': majorRoadCaseWidth
+                        }
+                    },
+                    {
+                        'id': 'highway cases',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'type': 'line',
+                        'filter': [
+                        //"any",
+                        "==", "kind", "highway"//,
+                        //["==", "kind", "major_road"]
+                        ],
+                        'paint': {
+                            'line-color': backgroundColor,
+                            'line-width': highwayCaseWidth
+                        }
+                    },
+                    {
+                        'id': 'paths',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'filter': [
+                            "all",
+                            ["==", "kind", "path"],
+                            ["!=", "kind_detail", "sidewalk"],
+                            ["!=", "kind_detail", "crossing"]
+                        ],
+                        'minzoom': 13,
+                        'type': 'line',
+                        'paint': {
+                            'line-color': '#8c7c78',
+                            'line-width': pathWidth,
+                            'line-dasharray': [2,1]
+                        }
+                    },
+                    {
+                        'id': 'minor roads',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'minzoom': 13,
+                        'type': 'line',
+                        'filter': [
+                        '==', 'kind', 'minor_road'
+                        ],
+                        'paint': {
+                            'line-color': roadColor,
+                            'line-width': minorRoadWidth
+                        }
+                    },
+                    {
+                        'id': 'major roads',
                         'source': 'my_area',
                         'source-layer': 'roads',
                         'type': 'line',
