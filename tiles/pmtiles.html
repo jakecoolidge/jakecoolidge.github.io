@@ -53,6 +53,10 @@
             [12, '#bababa']
             ]
         } 
+
+        const pathColor = '#8c7c78'
+
+        const roadLabelColor = '#525252'
         
         const highwayWidth = {
             'stops': [
@@ -96,11 +100,15 @@
         }
 
         const highwayCaseWidth = {
-            "stops": highwayWidth.stops.map(([zoom, width]) => [zoom, width + 1])
+            "stops": highwayWidth.stops.map(([zoom, width]) => [zoom, width + 2])
+        }
+
+        const highwayBridgeCaseWidth = {
+            "stops": highwayWidth.stops.map(([zoom, width]) => [zoom, width + 3])
         }
 
         const majorRoadCaseWidth = {
-            "stops": majorRoadWidth.stops.map(([zoom,width]) => [zoom, width + 1])
+            "stops": majorRoadWidth.stops.map(([zoom,width]) => [zoom, width + 2])
         }
 
         const minorRoadCaseWidth = {
@@ -359,14 +367,48 @@
                             "all",
                             ["==", "kind", "path"],
                             ["!=", "kind_detail", "sidewalk"],
-                            ["!=", "kind_detail", "crossing"]
+                            ["!=", "kind_detail", "crossing"],
+                            ["!=", "kind_detail", "pier"],
+                            ["!=", "kind_detail", "corridor"]
                         ],
                         'minzoom': 13,
                         'type': 'line',
                         'paint': {
-                            'line-color': '#8c7c78',
+                            'line-color': pathColor,
                             'line-width': pathWidth,
                             'line-dasharray': [2,1]
+                        }
+                    },
+                    {
+                        'id': 'pier paths',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'filter': [
+                            "all",
+                            ["==", "kind", "path"],
+                            ["==", "kind_detail", "pier"]
+                        ],
+                        'minzoom': 13,
+                        'type': 'line',
+                        'paint': {
+                            'line-color': backgroundColor,
+                            'line-width': pathWidth
+                        }
+                    },
+                    {
+                        'id': 'footways',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'filter': [
+                            "all",
+                            ["==", "kind", "path"],
+                            ["==", "kind_detail", "footway"]
+                        ],
+                        'minzoom': 14,
+                        'type': 'line',
+                        'paint': {
+                            'line-color': pathColor,
+                            'line-width': pathWidth
                         }
                     },
                     {
@@ -376,7 +418,9 @@
                         'minzoom': 13,
                         'type': 'line',
                         'filter': [
-                        '==', 'kind', 'minor_road'
+                            'all',
+                            ['==', 'kind', 'minor_road'],
+                            ['!=', 'access', 'no']
                         ],
                         'paint': {
                             'line-color': roadColor,
@@ -412,14 +456,133 @@
                         }
                     },
                     {
-                        "id": "road labels",
-                        "type": "symbol",
-                        "source": "my_area",
-                        "source-layer": "roads",
+                        'id': 'major road bridges',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'type': 'line',
+                        'filter': [
+                        '==', 'kind', 'major_road'
+                        ],
+                        'paint': {
+                            'line-color': roadColor,
+                            'line-width': majorRoadWidth
+                        }
+                    },
+                    {
+                        'id': 'highway bridge cases',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'type': 'line',
+                        'filter': [
+                            "all",
+                            ["==", "kind", "highway"],
+                            ["==", "is_bridge", true]
+                        ],
+                        'paint': {
+                            'line-color': backgroundColor,
+                            'line-width': highwayBridgeCaseWidth
+                        }
+                    },
+                    {
+                        'id': 'highway bridges',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'type': 'line',
+                        'filter': [
+                            "all",
+                            ["==", "kind", "highway"],
+                            ["==", "is_bridge", true]
+                        ],
+                        'paint': {
+                            'line-color': roadColor,
+                            'line-width': highwayWidth
+                        },
+                        'layout': {
+                            'line-cap': 'round'
+                        }
+                    },
+                    {
+                        'id': 'path labels',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'filter': [
+                            "all",
+                            ["==", "kind", "path"],
+                            ["!=", "kind_detail", "sidewalk"],
+                            ["!=", "kind_detail", "crossing"],
+                            ["!=", "kind_detail", "pier"]
+                        ],
+                        'minzoom': 13,
+                        'type': 'symbol',
                         "layout": {
                             "text-font": ["Open Sans"],
                             "symbol-placement": "line-center",
-                            "text-field": "{name}"
+                            "text-field": "{name}",
+                            'text-size': {
+                                'stops': [
+                                    [13, 10],
+                                    [16, 12]
+                                ]
+                            }
+                        },
+                        'paint': {
+                            'text-color': '#554d49',
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.75
+                        }
+                    },
+                    {
+                        "id": "minor road labels",
+                        "type": "symbol",
+                        "source": "my_area",
+                        "source-layer": "roads",
+                        'minzoom': 13,
+                        "filter": [
+                            '==', 'kind', 'minor_road'
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "line-center",
+                            "text-field": "{name}",
+                            'text-size': {
+                                'stops': [
+                                    [13, 10],
+                                    [16, 14]
+                                ]
+                            }
+                        },
+                        "paint": {
+                            "text-color": roadLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "major road labels",
+                        "type": "symbol",
+                        "source": "my_area",
+                        "source-layer": "roads",
+                        "filter": [
+                            '==', 'kind', 'major_road'
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "line-center",
+                            "text-field": "{name}",
+                            'text-size': {
+                                'stops': [
+                                    [13, 10],
+                                    [16, 18]
+                                ]
+                            }
+                        },
+                        "paint": {
+                            "text-color": roadLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
                         }
                     },
                     {
