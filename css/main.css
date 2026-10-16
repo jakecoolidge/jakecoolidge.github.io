@@ -373,6 +373,9 @@ pre {
   background-size: 1000px; 
   background-position: center;
 }
+.bg-thumb-ggnra {
+  background-image: url(../img/ggnra-thumb.png);
+}
 
 .bg-thumb-park-tiles {
   background-image: url(../img/nps-park-tiles-thumb-wide.png);

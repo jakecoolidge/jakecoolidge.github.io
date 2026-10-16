@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GGNRA</title>
+    <link rel="icon" type="image/png" href="img/icon2.png" type="image/x-icon" />
+    <meta name="description" content="Online porfolio for Jake Coolidge, featuring cartography and design. Hand-drawn maps, maps for academic presses, guide maps, and other explorations. ">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="canonical" href="http://localhost:4000/nps-park-tiles.html">
+    <!--link rel="alternate" type="application/rss+xml" title="Jake Coolidge Cartography" href="http://localhost:4000/feed.xml"-->
+    <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@6.13.0/dist/maplibre-gl.css' />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/pmtiles@3.2.0/dist/pmtiles.js"></script>
+    <style>
+        body { margin: 0; padding: 0; }
+        html, body { height: 100%; }
+        #map { width: 100%; height: 70vh; }
+    </style>
+</head>
+
+<body>
+    
+    <header class="site-header">
+        
+        <div class="wrapper">
+            
+            <a class="site-title" href="/">Jake Coolidge Cartography</a>
+            
+        </div>
+    </header>
+    
+    
+    <div class="page-content">
+        
+        <div class="wrapper">
+            
+            <article class="post">
+                
+                <header class="post-header">
+                    <!--h1 class="post-title">National Park Service</h1-->
+                </header>
+                
+                <div class="post-content">
+                    
+                    <h2 id="ggnra" class="item-title">Golden Gate National Recreation Area</h2>
+                    
+                    <div id="map"></div>
+                    
+                    <div class="text">
+                        
+                        <p>2026. MapLibre and custom PMTiles.</p>
+                        
+                        <p>I've recreated much of the look and feel of the flagship National Park Service basemap, <a href="nps.html">Park Tiles Standard,</a> using a lightweight <a href="https://maplibre.org/">MapLibre</a> implementation with custom <a href="https://docs.protomaps.com/pmtiles/maplibre">PMTiles</a> running under the hood. In this early prototype, I'm limiting the geographic scope to Golden Gate National Recreation Area.</p>
+                        
+                    </div>
+                    
+                </div>
+            </article>
+            
+        </div>
+        
+    </div>
+    
+    <footer class="site-footer">
+        
+        <div class="wrapper">
+            
+            <p><strong>See also</strong></p>
+            
+            <figure>
+                <a href="nps.html">
+                    <div class="bg-thumb bg-thumb-park-tiles"></div>
+                    <figcaption>National Park Service cartography</figcaption>
+                </a>
+            </figure>
+            
+            <figure>
+                <a href="hand-made.html">
+                    <div class="bg-thumb bg-thumb-columbia-river"></div>
+                    <figcaption>Maps drawn and printed by hand</figcaption>
+                </a>
+            </figure>
+            
+            <figure>
+                <a href="explorations.html">
+                    <div class="bg-thumb bg-thumb-century-of-growth"></div>
+                    <figcaption>Experiments and explorations</figcaption>
+                </a>
+            </figure>
+            
+            <figure>
+                <a href="freelance-cartography.html">
+                    <div class="bg-thumb bg-thumb-i-bike-oakland"></div>
+                    <figcaption>Freelance cartography</figcaption>
+                </a>
+            </figure>
+            
+            <figure>
+                <a href="more-freelancing.html">
+                    <div class="bg-thumb bg-thumb-chernobyl"></div>
+                    <figcaption>More freelancing</figcaption>
+                </a>
+            </figure>
+            
+            <h2 class="footer-heading">Jake Coolidge Cartography</h2>
+            
+            <div class="footer-col-wrapper">
+                <div class="footer-col footer-col-1">
+                    <!--ul class="contact-list">
+                    <li>connect with Jake Coolidge:</li>
+                    < li><a href="mailto:your-email@domain.com">your-email@domain.com</a></li>
+                    </ul -->
+                    <!--p><a href="table-of-contents.html">Table of Contents</a></p-->
+                    <p><a href="about.html">About Jake Coolidge</a></p>
+                </div>
+                
+                <div class="footer-col footer-col-2">
+                    <ul class="social-media-list">
+                        
+                        <li>
+                            <a href="https://github.com/jakecoolidge"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg></span><span class="username">jakecoolidge</span></a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/jakecoolidge/"><span class="icon icon--linkedin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path></svg></span><span class="username">jakecoolidge</span></a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                
+                <div class="footer-col footer-col-3">
+                    <p>Online porfolio for Jake Coolidge, featuring cartography and design. Hand-drawn maps, maps for academic presses, guide maps, and other explorations.</p>
+                </div>
+                
+                <p class="post-meta">All content &#169; 2009 &ndash; <script>document.write(new Date().getFullYear());</script> Jake Coolidge. All rights reserved. Last updated September 2026.</p>
+                
+            </div>
+        </div>
+    </footer>
+    
+    <script type="module">
+        import * as maplibregl from 'https://unpkg.com/maplibre-gl@6.13.0/dist/maplibre-gl.mjs';
+        
+        // add the PMTiles plugin to the maplibregl global.
+        const protocol = new pmtiles.Protocol();
+        maplibregl.addProtocol('pmtiles', protocol.tile);
+        
+        const BASE_URL = 'https://pub-36ee1968fc6b4e09a55da5013a410339.r2.dev/';
+
+        const MY_AREA_URL = `${BASE_URL}my_area.pmtiles`;
+        const NPS_BOUNDARY_URL = `${BASE_URL}nps_boundary.pmtiles`;
+        const NPS_POINT_URL = `${BASE_URL}nps_point.pmtiles`;
+        const PMTILES_URL = 'https://pub-36ee1968fc6b4e09a55da5013a410339.r2.dev/my_area.pmtiles'; //original
+
+        const myArea = new pmtiles.PMTiles(MY_AREA_URL);
+        const npsBoundary = new pmtiles.PMTiles(NPS_BOUNDARY_URL);
+        const npsPoint = new pmtiles.PMTiles(NPS_POINT_URL);
+        const p = new pmtiles.PMTiles(PMTILES_URL); //original
+        
+        // bounds limiters
+        const bounds = [
+            [-122.7713, 37.4207],// southwest
+            [-122.221, 38.0449]// northeast
+        ]
+        // define reusable style properties
+        const backgroundColor = '#f7eee8'
+
+        const roadColor = {
+            'stops': [
+            [5, '#bababa'],
+            [8, '#969696'],
+            [12, '#bababa']
+            ]
+        } 
+
+        const pathColor = '#8c7c78'
+
+        const roadLabelColor = '#525252'
+
+        const parkLabelColor = '#1d4700'
+
+        const placeLabelColor = '#303030'
+        
+        const highwayWidth = {
+            'stops': [
+            [3, 1],
+            [7, 1.5],
+            [10, 3],
+            [13, 4],
+            [14, 6],
+            [16, 10],
+            [17, 16],
+            [20, 50]
+            ]
+        }
+        
+        const majorRoadWidth = {
+            "stops": [
+            [7, 0.75],
+            [10, 1.5],
+            [13, 3],
+            [14, 4],
+            [16, 7],
+            [17, 12],
+            [20, 40]
+            ]
+        }
+
+        const minorRoadWidth = {
+            "stops": [
+                [13, 2],
+                [16, 3],
+                [17, 6],
+                [20, 20]
+            ]
+        }
+
+        const pathWidth = {
+            "stops": [
+                [13, 1],
+                [20, 5]
+            ]
+        }
+
+        const highwayCaseWidth = {
+            "stops": highwayWidth.stops.map(([zoom, width]) => [zoom, width + 2])
+        }
+
+        const highwayBridgeCaseWidth = {
+            "stops": highwayWidth.stops.map(([zoom, width]) => [zoom, width + 3])
+        }
+
+        const majorRoadCaseWidth = {
+            "stops": majorRoadWidth.stops.map(([zoom,width]) => [zoom, width + 2])
+        }
+
+        const minorRoadCaseWidth = {
+            "stops": minorRoadWidth.stops.map(([zoom, width]) => [zoom, width +1])
+        }
+        
+        // this is so we share one instance across the JS code and the map renderer
+        protocol.add(myArea);
+        protocol.add(npsBoundary);
+        protocol.add(npsPoint);
+        protocol.add(p); //original
+        
+        // we first fetch the header so we can get the center lon, lat of the map.
+        p.getHeader().then(h => {
+            const map = new maplibregl.Map({
+                container: 'map',
+                zoom: h.maxZoom - 2,
+                center: [-122.4667,37.7974],//[h.centerLon, h.centerLat],
+                maxBounds: bounds,
+                style: {
+                    version: 8,
+                    sources: {
+                        'hillshade': {
+                            type: 'raster',
+                            tiles: ['https://tiles.openstreetmap.us/raster/hillshade/{z}/{x}/{y}.jpg'],
+                            tileSize: 256,
+                            attribution: 'Tiles by <a href="https://tiles.openstreetmap.us/">OSM US</a>'
+                        },
+                        'my_area': {
+                            type: 'vector',
+                            url: `pmtiles://${MY_AREA_URL}`, //`pmtiles://${PMTILES_URL}`,
+                            attribution: '© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
+                        },
+                        'nps_boundary': {
+                            type: 'vector',
+                            url: `pmtiles://${NPS_BOUNDARY_URL}`,
+                            attribution: 'National Park Service'
+                        },
+                        'nps_point': {
+                            type: 'vector',
+                            url: `pmtiles://${NPS_POINT_URL}`,
+                            attribution: 'National Park Service'
+                        }
+                    },
+                    //sprite: '',
+                    //glyphs: '',
+                    layers: [
+                    {
+                        'id': 'background',
+                        'type': 'background',
+                        'paint': {
+                            'background-color': backgroundColor
+                        }
+                    },
+                    {
+                        'id': 'park fill',
+                        'source': 'my_area',
+                        'source-layer': 'landuse',
+                        'filter': [
+                            'any',
+                            ['==', 'kind', 'park'],
+                            ['==', 'kind', 'dog_park'],
+                            ['==', 'kind', 'garden'],
+                            ['==', 'kind', 'golf_course'],
+                            ['==', 'kind', 'grass'],
+                            ['==', 'kind', 'meadow'],
+                            ['==', 'kind', 'national_park'],
+                            ['==', 'kind', 'nature_reserve'],
+                            ['==', 'kind', 'orchard'],
+                            ['==', 'kind', 'pitch'],
+                            ['==', 'kind', 'playground'],
+                            ['==', 'kind', 'protected_area'],
+                            ['==', 'kind', 'recreation_ground'],
+                            ['==', 'kind', 'scrub']
+                        ],
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': '#e0dfcc'
+                        }
+                    },
+                    {
+                        'id': 'nps boundary fill',
+                        'source': 'nps_boundary',
+                        'source-layer': 'nps_boundary',
+                        'filter': ["==", "park_class", "o"],
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': '#cdccb7' // pre-hillshade '#e0dfcc'
+                        }
+                    },
+                    {
+                        'id': 'woodland fill',
+                        'source': 'my_area',
+                        'source-layer': 'landuse',
+                        'filter': [
+                            'any',
+                            ['==', 'kind', 'wood'],
+                            ['==', 'kind', 'forest']
+                        ],
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': '#bab9a2'
+                        }
+                    },
+                    {
+                        'id': 'hillshade',
+                        'type': 'raster',
+                        'source': 'hillshade',
+                        'paint': {
+                            'raster-opacity': 0.2
+                        }
+                    },
+                    /*{
+                        'id': 'vector template',
+                        'source': 'my_area',
+                        'source-layer': 'a-layer',
+                        'filter': [],
+                        'type': 'type',
+                        'paint': {}
+                    },*/
+                    {
+                        'id': 'runways taxiways',
+                        'source': 'my_area',
+                        'source-layer': 'landuse',
+                        'filter': [
+                            'any',
+                            ['==', 'kind', 'runway'],
+                            ['==', 'kind', 'taxiway']
+                        ],
+                        //'minzoom': 14,
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': '#bbb'
+                        }
+                    },
+                    {
+                        'id': 'pedestrian areas',
+                        'source': 'my_area',
+                        'source-layer': 'landuse',
+                        'filter': [
+                            '==', 'kind', 'pedestrian'
+                        ],
+                        'minzoom': 14,
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': '#ddd'
+                        }
+                    },
+                    {
+                        'id': 'beach',
+                        'source': 'my_area',
+                        'source-layer': 'landuse',
+                        'filter': [
+                            "any",
+                            ["==", 'kind', 'beach'],
+                            ["==", 'kind', 'sand']
+                        ],
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': '#faf3e3'//'#fffcdc'
+                        }
+                    },
+                    {
+                        'id': 'water area',
+                        'source': 'my_area',
+                        'source-layer': 'water',
+                        'filter': [
+                        'all',
+                        [
+                        '==',
+                        '$type',
+                        'Polygon'
+                        ]
+                        ],
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': '#b5d0de'
+                        }
+                    },
+                    {
+                        'id': 'nps boundary line',
+                        'source': 'nps_boundary',
+                        'source-layer': 'nps_boundary',
+                        'filter': [
+                            "all",
+                            ["==", "park_class", "o"],
+                            ["!=", "unit_code", "alca"]
+                        ],
+                        'type': 'line',
+                        'paint': {
+                            'line-color': '#4e7500',
+                            'line-width': {
+                                'stops': [
+                                    [13, 1],
+                                    [14, 2]
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        'id': 'piers',
+                        'source': 'my_area',
+                        'source-layer': 'landuse',
+                        'filter': ["==", 'kind', 'pier'],
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': backgroundColor
+                        }
+                    },
+                    {
+                        'id': 'buildings',
+                        'source': 'my_area',
+                        'source-layer': 'buildings',
+                        'filter': ['!=', 'layer', -1],
+                        'minzoom': 14,
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': '#d4c1ab'
+                        }
+                    },
+                    {
+                        'id': 'minor roads cases',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'minzoom': 13,
+                        'type': 'line',
+                        'filter': [
+                        '==', 'kind', 'minor_road'
+                        ],
+                        'paint': {
+                            'line-color': backgroundColor,
+                            'line-width': minorRoadCaseWidth
+                        }
+                    },
+                    {
+                        'id': 'major roads cases',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'type': 'line',
+                        'filter': [
+                        '==', 'kind', 'major_road'
+                        ],
+                        'paint': {
+                            'line-color': backgroundColor,
+                            'line-width': majorRoadCaseWidth
+                        }
+                    },
+                    {
+                        'id': 'highway cases',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'type': 'line',
+                        'filter': [
+                        //"any",
+                        "==", "kind", "highway"//,
+                        //["==", "kind", "major_road"]
+                        ],
+                        'paint': {
+                            'line-color': backgroundColor,
+                            'line-width': highwayCaseWidth
+                        }
+                    },
+                    {
+                        'id': 'paths',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'filter': [
+                            "all",
+                            ["==", "kind", "path"],
+                            ["!=", "kind_detail", "sidewalk"],
+                            ["!=", "kind_detail", "crossing"],
+                            ["!=", "kind_detail", "pier"],
+                            ["!=", "kind_detail", "corridor"]
+                        ],
+                        'minzoom': 13,
+                        'type': 'line',
+                        'paint': {
+                            'line-color': pathColor,
+                            'line-width': pathWidth,
+                            'line-dasharray': [2,1]
+                        }
+                    },
+                    {
+                        'id': 'pier paths',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'filter': [
+                            "all",
+                            ["==", "kind", "path"],
+                            ["==", "kind_detail", "pier"]
+                        ],
+                        'minzoom': 13,
+                        'type': 'line',
+                        'paint': {
+                            'line-color': backgroundColor,
+                            'line-width': pathWidth
+                        }
+                    },
+                    {
+                        'id': 'footways',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'filter': [
+                            "all",
+                            ["==", "kind", "path"],
+                            ["==", "kind_detail", "footway"]
+                        ],
+                        'minzoom': 14,
+                        'type': 'line',
+                        'paint': {
+                            'line-color': pathColor,
+                            'line-width': pathWidth
+                        }
+                    },
+                    {
+                        'id': 'minor roads',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'minzoom': 13,
+                        'type': 'line',
+                        'filter': [
+                            'all',
+                            ['==', 'kind', 'minor_road'],
+                            ['!=', 'access', 'no']
+                        ],
+                        'paint': {
+                            'line-color': roadColor,
+                            'line-width': minorRoadWidth
+                        }
+                    },
+                    {
+                        'id': 'major roads',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'type': 'line',
+                        'filter': [
+                        '==', 'kind', 'major_road'
+                        ],
+                        'paint': {
+                            'line-color': roadColor,
+                            'line-width': majorRoadWidth
+                        }
+                    },
+                    {
+                        'id': 'highways',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'type': 'line',
+                        'filter': [
+                        //"any",
+                        "==", "kind", "highway"//,
+                        //["==", "kind", "major_road"]
+                        ],
+                        'paint': {
+                            'line-color': roadColor,
+                            'line-width': highwayWidth
+                        }
+                    },
+                    {
+                        'id': 'major road bridges',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'type': 'line',
+                        'filter': [
+                        '==', 'kind', 'major_road'
+                        ],
+                        'paint': {
+                            'line-color': roadColor,
+                            'line-width': majorRoadWidth
+                        }
+                    },
+                    {
+                        'id': 'highway bridge cases',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'type': 'line',
+                        'filter': [
+                            "all",
+                            ["==", "kind", "highway"],
+                            ["==", "is_bridge", true]
+                        ],
+                        'paint': {
+                            'line-color': backgroundColor,
+                            'line-width': highwayBridgeCaseWidth
+                        }
+                    },
+                    {
+                        'id': 'highway bridges',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'type': 'line',
+                        'filter': [
+                            "all",
+                            ["==", "kind", "highway"],
+                            ["==", "is_bridge", true]
+                        ],
+                        'paint': {
+                            'line-color': roadColor,
+                            'line-width': highwayWidth
+                        },
+                        'layout': {
+                            'line-cap': 'round'
+                        }
+                    },
+                    {
+                        'id': 'nps boundary line labels',
+                        'source': 'nps_boundary',
+                        'source-layer': 'nps_boundary',
+                        'filter': [
+                            "all",
+                            ["==", "park_class", "o"],
+                            ["!=", "unit_code", "alca"]
+                        ],
+                        'minzoom': 13,
+                        'type': 'symbol',
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "line",
+                            "text-field": "{display_name}",
+                            "text-offset": [0, 1],
+                            'text-size': {
+                                'stops': [
+                                    [13, 10],
+                                    [16, 12]
+                                ]
+                            }
+                        },
+                        'paint': {
+                            'text-color': parkLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.75
+                        }
+                    },
+                    {
+                        'id': 'path labels',
+                        'source': 'my_area',
+                        'source-layer': 'roads',
+                        'filter': [
+                            "all",
+                            ["==", "kind", "path"],
+                            ["!=", "kind_detail", "sidewalk"],
+                            ["!=", "kind_detail", "crossing"],
+                            ["!=", "kind_detail", "pier"]
+                        ],
+                        'minzoom': 13,
+                        'type': 'symbol',
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "line-center",
+                            "text-field": "{name}",
+                            'text-size': {
+                                'stops': [
+                                    [13, 10],
+                                    [16, 12]
+                                ]
+                            }
+                        },
+                        'paint': {
+                            'text-color': '#554d49',
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.75
+                        }
+                    },
+                    {
+                        "id": "minor road labels",
+                        "type": "symbol",
+                        "source": "my_area",
+                        "source-layer": "roads",
+                        'minzoom': 13,
+                        "filter": [
+                            '==', 'kind', 'minor_road'
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "line-center",
+                            "text-field": "{name}",
+                            'text-size': {
+                                'stops': [
+                                    [13, 10],
+                                    [16, 14]
+                                ]
+                            }
+                        },
+                        "paint": {
+                            "text-color": roadLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "major road labels",
+                        "type": "symbol",
+                        "source": "my_area",
+                        "source-layer": "roads",
+                        "filter": [
+                            '==', 'kind', 'major_road'
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "line-center",
+                            "text-field": "{name}",
+                            'text-size': {
+                                'stops': [
+                                    [13, 10],
+                                    [16, 18]
+                                ]
+                            }
+                        },
+                        "paint": {
+                            "text-color": roadLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "neighborhood labels",
+                        "type": "symbol",
+                        "source": "my_area",
+                        "source-layer": "places",
+                        'minzoom': 13,
+                        "filter": [
+                            '==', 'kind', 'neighbourhood'
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{name}",
+                            //"text-transform": "uppercase",
+                            'text-size': 12,
+                            //'text-letter-spacing': 0.1,
+                            'text-line-height': 1.5
+                        },
+                        "paint": {
+                            "text-color": placeLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "macrohood labels",
+                        "type": "symbol",
+                        "source": "my_area",
+                        "source-layer": "places",
+                        'minzoom': 13,
+                        "filter": [
+                            '==', 'kind', 'macrohood'
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{name}",
+                            //"text-transform": "uppercase",
+                            'text-size': 12,
+                            'text-letter-spacing': 0.1,
+                            'text-line-height': 1.5
+                        },
+                        "paint": {
+                            "text-color": placeLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "small place labels",
+                        "type": "symbol",
+                        "source": "my_area",
+                        "source-layer": "places",
+                        "filter": [
+                            'all',
+                            ['==', 'kind', 'locality'],
+                            ['<', 'population_rank', 12]
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{name}",
+                            "text-transform": "uppercase",
+                            'text-size': 12,
+                            'text-letter-spacing': 0.2,
+                            'text-line-height': 1.5
+                        },
+                        "paint": {
+                            "text-color": placeLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "large place labels",
+                        "type": "symbol",
+                        "source": "my_area",
+                        "source-layer": "places",
+                        "filter": [
+                            'all',
+                            ['==', 'kind', 'locality'],
+                            ['==', 'population_rank', 12]
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{name}",
+                            "text-transform": "uppercase",
+                            'text-size': 16,
+                            'text-letter-spacing': 0.3,
+                            'text-line-height': 1.7
+                        },
+                        "paint": {
+                            "text-color": placeLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "small nps labels",
+                        "type": "symbol",
+                        "source": "nps_point",
+                        "source-layer": "cartographic_other_label",
+                        "filter": [
+                            'any',
+                            ['==', 'type', 'nps label z11'],
+                            ['==', 'name', 'Mori Point'],
+                            ['==', 'name', 'Sweeney Ridge',],
+                            ['==', 'name',  'Milagra Ridge']
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{name}",
+                            //"text-transform": "uppercase",
+                            'text-size': 12
+                        },
+                        "paint": {
+                            "text-color": parkLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "nps subunit labels",
+                        "type": "symbol",
+                        "source": "nps_point",
+                        "source-layer": "cartographic_park_label",
+                        "filter": [
+                            '==', 'park_class', 'subunit'
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{label_name}",
+                            //"text-transform": "uppercase",
+                            'text-size': 14
+                        },
+                        "paint": {
+                            "text-color": parkLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "medium nps labels",
+                        "type": "symbol",
+                        "source": "nps_point",
+                        "source-layer": "cartographic_park_label",
+                        "filter": [
+                            '==', 'park_class', 'gamma'
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{label_long}",
+                            "text-transform": "uppercase",
+                            'text-size': 16
+                        },
+                        "paint": {
+                            "text-color": parkLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "large nps labels",
+                        "type": "symbol",
+                        "source": "nps_point",
+                        "source-layer": "cartographic_park_label",
+                        "filter": [
+                            '==', 'park_class', 'alpha'
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{label_long}",
+                            "text-transform": "uppercase",
+                            'text-size': 14
+                        },
+                        "paint": {
+                            "text-color": parkLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        'id': 'mask',
+                        'source': 'my_area',
+                        'source-layer': 'mask',
+                        'type': 'fill',
+                        'paint': {
+                            'fill-color': 'white'
+                        }
+                    }
+                    ]
+                }
+            });
+
+            map.addControl(new maplibregl.FullscreenControl());
+        });
+
+    </script>
+    
+</body>
+
+</html>

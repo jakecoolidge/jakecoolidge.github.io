@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>some PMTiles</title>
+    <title>GGNRA</title>
     <meta property="og:description" content="Uses the PMTiles plugin and protocol to present a map." />
     <meta property="og:category" content="Plugins & Integrations" />
     <meta property="og:order" content="2" />
@@ -32,10 +32,12 @@
 
         const MY_AREA_URL = `${BASE_URL}my_area.pmtiles`;
         const NPS_BOUNDARY_URL = `${BASE_URL}nps_boundary.pmtiles`;
+        const NPS_POINT_URL = `${BASE_URL}nps_point.pmtiles`;
         const PMTILES_URL = 'https://pub-36ee1968fc6b4e09a55da5013a410339.r2.dev/my_area.pmtiles'; //original
 
         const myArea = new pmtiles.PMTiles(MY_AREA_URL);
         const npsBoundary = new pmtiles.PMTiles(NPS_BOUNDARY_URL);
+        const npsPoint = new pmtiles.PMTiles(NPS_POINT_URL);
         const p = new pmtiles.PMTiles(PMTILES_URL); //original
         
         // bounds limiters
@@ -57,6 +59,10 @@
         const pathColor = '#8c7c78'
 
         const roadLabelColor = '#525252'
+
+        const parkLabelColor = '#1d4700'
+
+        const placeLabelColor = '#303030'
         
         const highwayWidth = {
             'stops': [
@@ -118,6 +124,7 @@
         // this is so we share one instance across the JS code and the map renderer
         protocol.add(myArea);
         protocol.add(npsBoundary);
+        protocol.add(npsPoint);
         protocol.add(p); //original
         
         // we first fetch the header so we can get the center lon, lat of the map.
@@ -145,8 +152,15 @@
                             type: 'vector',
                             url: `pmtiles://${NPS_BOUNDARY_URL}`,
                             attribution: 'National Park Service'
+                        },
+                        'nps_point': {
+                            type: 'vector',
+                            url: `pmtiles://${NPS_POINT_URL}`,
+                            attribution: 'National Park Service'
                         }
                     },
+                    //sprite: '',
+                    //glyphs: '',
                     layers: [
                     {
                         'id': 'background',
@@ -284,7 +298,11 @@
                         'id': 'nps boundary line',
                         'source': 'nps_boundary',
                         'source-layer': 'nps_boundary',
-                        'filter': ["==", "park_class", "o"],
+                        'filter': [
+                            "all",
+                            ["==", "park_class", "o"],
+                            ["!=", "unit_code", "alca"]
+                        ],
                         'type': 'line',
                         'paint': {
                             'line-color': '#4e7500',
@@ -502,6 +520,36 @@
                         }
                     },
                     {
+                        'id': 'nps boundary line labels',
+                        'source': 'nps_boundary',
+                        'source-layer': 'nps_boundary',
+                        'filter': [
+                            "all",
+                            ["==", "park_class", "o"],
+                            ["!=", "unit_code", "alca"]
+                        ],
+                        'minzoom': 13,
+                        'type': 'symbol',
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "line",
+                            "text-field": "{display_name}",
+                            "text-offset": [0, 1],
+                            'text-size': {
+                                'stops': [
+                                    [13, 10],
+                                    [16, 12]
+                                ]
+                            }
+                        },
+                        'paint': {
+                            'text-color': parkLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.75
+                        }
+                    },
+                    {
                         'id': 'path labels',
                         'source': 'my_area',
                         'source-layer': 'roads',
@@ -586,6 +634,200 @@
                         }
                     },
                     {
+                        "id": "neighborhood labels",
+                        "type": "symbol",
+                        "source": "my_area",
+                        "source-layer": "places",
+                        'minzoom': 13,
+                        "filter": [
+                            '==', 'kind', 'neighbourhood'
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{name}",
+                            //"text-transform": "uppercase",
+                            'text-size': 12,
+                            //'text-letter-spacing': 0.1,
+                            'text-line-height': 1.5
+                        },
+                        "paint": {
+                            "text-color": placeLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "macrohood labels",
+                        "type": "symbol",
+                        "source": "my_area",
+                        "source-layer": "places",
+                        'minzoom': 13,
+                        "filter": [
+                            '==', 'kind', 'macrohood'
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{name}",
+                            //"text-transform": "uppercase",
+                            'text-size': 12,
+                            'text-letter-spacing': 0.1,
+                            'text-line-height': 1.5
+                        },
+                        "paint": {
+                            "text-color": placeLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "small place labels",
+                        "type": "symbol",
+                        "source": "my_area",
+                        "source-layer": "places",
+                        "filter": [
+                            'all',
+                            ['==', 'kind', 'locality'],
+                            ['<', 'population_rank', 12]
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{name}",
+                            "text-transform": "uppercase",
+                            'text-size': 12,
+                            'text-letter-spacing': 0.2,
+                            'text-line-height': 1.5
+                        },
+                        "paint": {
+                            "text-color": placeLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "large place labels",
+                        "type": "symbol",
+                        "source": "my_area",
+                        "source-layer": "places",
+                        "filter": [
+                            'all',
+                            ['==', 'kind', 'locality'],
+                            ['==', 'population_rank', 12]
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{name}",
+                            "text-transform": "uppercase",
+                            'text-size': 16,
+                            'text-letter-spacing': 0.3,
+                            'text-line-height': 1.7
+                        },
+                        "paint": {
+                            "text-color": placeLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "small nps labels",
+                        "type": "symbol",
+                        "source": "nps_point",
+                        "source-layer": "cartographic_other_label",
+                        "filter": [
+                            'any',
+                            ['==', 'type', 'nps label z11'],
+                            ['==', 'name', 'Mori Point'],
+                            ['==', 'name', 'Sweeney Ridge',],
+                            ['==', 'name',  'Milagra Ridge']
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{name}",
+                            //"text-transform": "uppercase",
+                            'text-size': 12
+                        },
+                        "paint": {
+                            "text-color": parkLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "nps subunit labels",
+                        "type": "symbol",
+                        "source": "nps_point",
+                        "source-layer": "cartographic_park_label",
+                        "filter": [
+                            '==', 'park_class', 'subunit'
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{label_name}",
+                            //"text-transform": "uppercase",
+                            'text-size': 14
+                        },
+                        "paint": {
+                            "text-color": parkLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "medium nps labels",
+                        "type": "symbol",
+                        "source": "nps_point",
+                        "source-layer": "cartographic_park_label",
+                        "filter": [
+                            '==', 'park_class', 'gamma'
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{label_long}",
+                            "text-transform": "uppercase",
+                            'text-size': 16
+                        },
+                        "paint": {
+                            "text-color": parkLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
+                        "id": "large nps labels",
+                        "type": "symbol",
+                        "source": "nps_point",
+                        "source-layer": "cartographic_park_label",
+                        "filter": [
+                            '==', 'park_class', 'alpha'
+                        ],
+                        "layout": {
+                            "text-font": ["Open Sans"],
+                            "symbol-placement": "point",
+                            "text-field": "{label_long}",
+                            "text-transform": "uppercase",
+                            'text-size': 14
+                        },
+                        "paint": {
+                            "text-color": parkLabelColor,
+                            'text-halo-color': backgroundColor,
+                            'text-halo-width': 2,
+                            'text-halo-blur': 0.5
+                        }
+                    },
+                    {
                         'id': 'mask',
                         'source': 'my_area',
                         'source-layer': 'mask',
@@ -597,7 +839,10 @@
                     ]
                 }
             });
+
+            map.addControl(new maplibregl.FullscreenControl());
         });
+
     </script>
 </body>
 </html>
